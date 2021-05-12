@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class TrackIP implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Funzt!");
+        System.out.println("TrackIP.java");
         Main.ip.setVisible(true);
         Main.hostname.setVisible(true);
         Main.orga.setVisible(true);
@@ -20,14 +20,14 @@ public class TrackIP implements ActionListener {
 
         try {
             IPResponse response = ipInfo.lookupIP(Main.ipaddrText.getText());
-            System.out.println("Response");
+            System.out.println("IRespone successful");
             Main.ip.setText("IPv4/6-Address : " + response.getIp());
             Main.hostname.setText("Hostname           : " + response.getHostname());
             Main.orga.setText("Organisation      : " + response.getOrg());
             Main.location.setText("Country                : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity());
             Main.loc.setText("Location              : " + response.getLocation());
         } catch (RateLimitedException ex) {
-            System.out.print(ex);
+            System.out.println(ex);
         }
     }
 }

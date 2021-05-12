@@ -1,44 +1,58 @@
 // Copyright© by Fin
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
 
 public class Main extends JPanel {
 
     public static JPanel loginpanel;
     public static JLabel userLabel;
     public static JLabel ipaddrlabel;
-    public static JTextField userText;
-    public static JTextField ipaddrText;
     public static JLabel pwLabel;
+    public static JLabel denied;
     public static JLabel ip;
     public static JLabel hostname;
     public static JLabel orga;
     public static JLabel location;
     public static JLabel loc;
+    public static JTextField userText;
+    public static JTextField ipaddrText;
     public static JPasswordField pwText;
     public static JButton button;
     public static JButton ipaddrbutton;
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException {
+        // Settings
         loginpanel = new JPanel();
+        loginpanel.setLayout(null);
         JMenuBar bar = new JMenuBar();
         JFrame frame = new JFrame("IPv4/6-Address-Info");
-        frame.setSize(600, 400);
+        frame.setSize(580, 270);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(loginpanel);
         frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        Image image = ImageIO.read(new File("IPInfo-BackgroundImage.jpg"));
+        JLabel img = new JLabel();
+        img.setIcon(new ImageIcon(image));
+        frame.add(img);
 
-        JMenu menu = new JMenu("Test");
+        // JMenu
+        JMenu menu = new JMenu("Info");
         bar.add(menu);
 
-        JMenuItem menuItem = new JMenuItem("123");
+        JMenuItem menuItem = new JMenuItem("Source code");
+        menuItem.addActionListener(new Menu());
         menu.add(menuItem);
 
         frame.setJMenuBar(bar);
 
-        loginpanel.setLayout(null);
-
-
+        // JPanel_Login
         userLabel = new JLabel("Username:");
         userLabel.setBounds(10, 20, 80, 25);
         loginpanel.add(userLabel);
@@ -60,6 +74,12 @@ public class Main extends JPanel {
         button.addActionListener(new Login());
         loginpanel.add(button);
 
+        denied = new JLabel("Access denied!");
+        denied.setBounds(10, 110, 100, 25);
+        denied.setVisible(false);
+        loginpanel.add(denied);
+
+        // JPanel_Track
         ipaddrlabel = new JLabel("IPv4/6-Address:");
         ipaddrlabel.setBounds(10, 20, 100, 25);
         ipaddrlabel.setVisible(false);
