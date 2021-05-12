@@ -16,7 +16,7 @@ public class TrackIP implements ActionListener {
         Main.orga.setVisible(true);
         Main.location.setVisible(true);
         Main.loc.setVisible(true);
-        IPInfo ipInfo = IPInfo.builder().setToken("TOKEN").build();
+        IPInfo ipInfo = IPInfo.builder().setToken("4033b7cbeadadb").build();
 
         try {
             IPResponse response = ipInfo.lookupIP(Main.ipaddrText.getText());
