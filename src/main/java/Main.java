@@ -2,11 +2,9 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Main {
@@ -20,7 +18,7 @@ public class Main {
     public static JLabel hostname;
     public static JLabel orga;
     public static JLabel location;
-    public static JLabel loc;
+    public static JTextField loc;
     public static JTextField userText;
     public static JTextField ipaddrText;
     public static JPasswordField pwText;
@@ -30,6 +28,7 @@ public class Main {
     /**
      * IDEAS:
      * Button for copying
+     * Button for logout
      */
 
     public static String OutputTime() {
@@ -40,7 +39,6 @@ public class Main {
 
     public static String OutputDate() {
         DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyy");
-        CharSequence text;
         LocalDateTime ldt = LocalDateTime.now();
         return ldt.format(df);
     }
@@ -60,16 +58,17 @@ public class Main {
         //frame.setContentPane(new BackGroundPane("src/main/resources/IPInfo-BackgroundImage.jpg"));
 
         // JMenu
-        JMenu menu = new JMenu("Info");
-        menu.setFont(new Font("Courier New", Font.BOLD, 12));
-        bar.add(menu);
+        JMenu menuInfo = new JMenu("Info");
+        menuInfo.setFont(new Font("Courier New", Font.BOLD, 12));
+        bar.add(menuInfo);
 
         JMenuItem menuItem = new JMenuItem("Source code");
         menuItem.addActionListener(new Menu());
         menuItem.setFont(new Font("Courier New", Font.BOLD, 12));
         menuItem.setBackground(Color.YELLOW);
         menuItem.setForeground(Color.BLUE);
-        menu.add(menuItem);
+
+        menuInfo.add(menuItem);
 
         frame.setJMenuBar(bar);
 
@@ -148,18 +147,19 @@ public class Main {
         location.setVisible(false);
         loginpanel.add(location);
 
-        loc = new JLabel("");
+        loc = new JTextField();
         loc.setBounds(10, 160, 400, 25);
+        loc.setBorder(null);
+        loc.setEditable(false);
         loc.setVisible(false);
         loginpanel.add(loc);
 
         ip.setForeground(Color.BLUE);
-        hostname.setForeground(Color.ORANGE);
-        orga.setForeground(Color.GREEN);
-        location.setForeground(Color.RED);
-        loc.setForeground(Color.CYAN);
+        hostname.setForeground(Color.BLACK);
+        orga.setForeground(Color.RED);
+        location.setForeground(Color.BLUE);
+        loc.setForeground(Color.BLACK);
 
         frame.setVisible(true);
-
     }
 }
