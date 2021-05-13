@@ -30,10 +30,6 @@ public class Main {
     /**
      * IDEAS:
      * Button for copying
-     *
-     * @param args
-     * @return
-     * @throws IOException
      */
 
     public static String OutputTime() {
@@ -49,7 +45,7 @@ public class Main {
         return ldt.format(df);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         // Settings
         loginpanel = new JPanel();
         loginpanel.setLayout(null);
