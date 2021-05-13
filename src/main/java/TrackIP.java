@@ -6,6 +6,9 @@ import io.ipinfo.api.model.IPResponse;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class TrackIP implements ActionListener {
 
@@ -16,7 +19,8 @@ public class TrackIP implements ActionListener {
         Main.orga.setVisible(true);
         Main.location.setVisible(true);
         Main.loc.setVisible(true);
-        IPInfo ipInfo = IPInfo.builder().setToken("4033b7cbeadadb").build();
+        //IPInfo ipInfo = IPInfo.builder().setToken("TOKEN").build();
+        IPInfo ipInfo = IPInfo.builder().build();
 
         try {
             IPResponse response = ipInfo.lookupIP(Main.ipaddrText.getText());
@@ -26,7 +30,22 @@ public class TrackIP implements ActionListener {
             Main.orga.setText("Organisation      : " + response.getOrg());
             Main.location.setText("Country                : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity());
             Main.loc.setText("Location              : " + response.getLocation());
-        } catch (RateLimitedException ex) {
+
+
+            FileWriter writer;
+            File dat = new File("addrinf(" + Main.OutputDate() + ").log");
+            writer = new FileWriter(dat, true);
+            writer.write("- - - - - - Time: " + Main.OutputTime() + " - - - - - -\n"
+                    + "IPv4/6-Address : " + response.getIp() + "\n"
+                    + "Hostname       : " + response.getHostname() + "\n"
+                    + "Organisation   : " + response.getOrg() + "\n"
+                    + "Country        : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity()
+                    + "\n"
+                    + "Location       : " + response.getLocation() + "\n\n");
+            writer.flush();
+            writer.close();
+
+        } catch (RateLimitedException | IOException ex) {
             System.out.println(ex);
         }
     }

@@ -1,10 +1,13 @@
 // Copyright© by Fin
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Main {
 
@@ -24,6 +27,27 @@ public class Main {
     public static JButton button;
     public static JButton ipaddrbutton;
 
+    /**
+     * IDEAS:
+     * Button for copying
+     *
+     * @param args
+     * @return
+     * @throws IOException
+     */
+
+    public static String OutputTime() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss,SS");
+        LocalDateTime ldt = LocalDateTime.now();
+        return ldt.format(dtf);
+    }
+
+    public static String OutputDate() {
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyy");
+        CharSequence text;
+        LocalDateTime ldt = LocalDateTime.now();
+        return ldt.format(df);
+    }
 
     public static void main(String[] args) throws IOException {
         // Settings
