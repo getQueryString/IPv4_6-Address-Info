@@ -64,13 +64,13 @@ public class Main {
         bar.add(data);
 
         JMenuItem sourceCode = new JMenuItem("Source code");
-        sourceCode.addActionListener(new Menu());
+        sourceCode.addActionListener(new Menu_File_Sourcecode());
         sourceCode.setFont(new Font("Courier New", Font.BOLD, 12));
 
         JSeparator line = new JSeparator();
 
         JMenuItem exit = new JMenuItem("Exit");
-        exit.addActionListener(new Exit());
+        exit.addActionListener(new Menu_File_Exit());
         exit.setFont(new Font("Courier New", Font.BOLD, 12));
 
         data.add(sourceCode);

@@ -3,7 +3,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Exit implements ActionListener {
+public class Menu_File_Exit implements ActionListener {
 
 
     @Override

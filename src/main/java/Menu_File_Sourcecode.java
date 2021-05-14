@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URI;
 
-public class Menu implements ActionListener {
+public class Menu_File_Sourcecode implements ActionListener {
 
 
     public void actionPerformed(ActionEvent e) {
