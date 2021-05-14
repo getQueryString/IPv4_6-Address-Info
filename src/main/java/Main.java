@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Main {
 
-    public static JPanel loginpanel;
+    public static JPanel loginPanel;
     public static JLabel userLabel;
     public static JLabel ipaddrlabel;
     public static JLabel pwLabel;
@@ -22,8 +22,9 @@ public class Main {
     public static JTextField userText;
     public static JTextField ipaddrText;
     public static JPasswordField pwText;
-    public static JButton button;
-    public static JButton ipaddrbutton;
+    public static JButton loginButton;
+    public static JButton ipaddrTrackButton;
+    public static JButton ipaddrLogoutButton;
 
     /**
      * IDEAS:
@@ -45,30 +46,36 @@ public class Main {
 
     public static void main(String[] args) {
         // Settings
-        loginpanel = new JPanel();
-        loginpanel.setLayout(null);
+        loginPanel = new JPanel();
+        loginPanel.setLayout(null);
         JMenuBar bar = new JMenuBar();
         JFrame frame = new JFrame("IPv4/6-Address-Info");
         frame.setSize(540, 270);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(loginpanel);
+        frame.add(loginPanel);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.getRootPane().setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
         //frame.setContentPane(new BackGroundPane("src/main/resources/IPInfo-BackgroundImage.jpg"));
 
         // JMenu
-        JMenu menuInfo = new JMenu("Info");
-        menuInfo.setFont(new Font("Courier New", Font.BOLD, 12));
-        bar.add(menuInfo);
+        JMenu data = new JMenu("File");
+        data.setFont(new Font("Courier New", Font.BOLD, 12));
+        bar.add(data);
 
-        JMenuItem menuItem = new JMenuItem("Source code");
-        menuItem.addActionListener(new Menu());
-        menuItem.setFont(new Font("Courier New", Font.BOLD, 12));
-        menuItem.setBackground(Color.YELLOW);
-        menuItem.setForeground(Color.BLUE);
+        JMenuItem sourceCode = new JMenuItem("Source code");
+        sourceCode.addActionListener(new Menu());
+        sourceCode.setFont(new Font("Courier New", Font.BOLD, 12));
 
-        menuInfo.add(menuItem);
+        JSeparator line = new JSeparator();
+
+        JMenuItem exit = new JMenuItem("Exit");
+        exit.addActionListener(new Exit());
+        exit.setFont(new Font("Courier New", Font.BOLD, 12));
+
+        data.add(sourceCode);
+        data.add(line);
+        data.add(exit);
 
         frame.setJMenuBar(bar);
 
@@ -77,82 +84,88 @@ public class Main {
         userLabel.setBounds(10, 20, 80, 25);
         userLabel.setFont(new Font("Courier New", Font.BOLD, 14));
         userLabel.setForeground(Color.RED);
-        loginpanel.add(userLabel);
+        loginPanel.add(userLabel);
 
-        userText = new JTextField(20);
+        userText = new JTextField();
         userText.setBounds(100, 20, 165, 25);
         userText.setBackground(Color.BLACK);
         userText.setForeground(Color.YELLOW);
-        loginpanel.add(userText);
+        loginPanel.add(userText);
 
         pwLabel = new JLabel("Password:");
         pwLabel.setBounds(10, 50, 80, 25);
         pwLabel.setForeground(Color.RED);
-        loginpanel.add(pwLabel);
+        loginPanel.add(pwLabel);
 
         pwText = new JPasswordField();
         pwText.setBounds(100, 50, 165, 25);
         pwText.setBackground(Color.BLACK);
         pwText.setForeground(Color.YELLOW);
-        loginpanel.add(pwText);
+        loginPanel.add(pwText);
 
-        button = new JButton("Login", new ImageIcon("src/main/resources/LoginIcon.png"));
-        button.setBounds(10, 80, 90, 25);
-        button.addActionListener(new Login());
-        loginpanel.add(button);
+        loginButton = new JButton("Login", new ImageIcon("src/main/resources/LoginIcon.png"));
+        loginButton.setBounds(10, 80, 90, 25);
+        loginButton.addActionListener(new Login());
+        loginPanel.add(loginButton);
 
-        denied = new JLabel("Access denied!");
-        denied.setBounds(10, 110, 100, 25);
+        denied = new JLabel();
+        denied.setBounds(10, 110, 200, 25);
         denied.setForeground(Color.RED);
         denied.setVisible(false);
-        loginpanel.add(denied);
+        loginPanel.add(denied);
 
         // JPanel_Track
         ipaddrlabel = new JLabel("IPv4/6-Address:");
         ipaddrlabel.setBounds(10, 20, 100, 25);
         ipaddrlabel.setForeground(Color.RED);
         ipaddrlabel.setVisible(false);
-        loginpanel.add(ipaddrlabel);
+        loginPanel.add(ipaddrlabel);
 
         ipaddrText = new JTextField(64);
         ipaddrText.setBounds(120, 20, 165, 25);
         ipaddrText.setBackground(Color.BLACK);
         ipaddrText.setForeground(Color.YELLOW);
         ipaddrText.setVisible(false);
-        loginpanel.add(ipaddrText);
+        loginPanel.add(ipaddrText);
 
-        ipaddrbutton = new JButton("Track", new ImageIcon("src/main/resources/StartIcon.png"));
-        ipaddrbutton.setBounds(10, 50, 90, 25);
-        ipaddrbutton.setVisible(false);
-        ipaddrbutton.addActionListener(new TrackIP());
-        loginpanel.add(ipaddrbutton);
+        ipaddrTrackButton = new JButton("Track", new ImageIcon("src/main/resources/StartIcon.png"));
+        ipaddrTrackButton.setBounds(10, 50, 90, 25);
+        ipaddrTrackButton.setVisible(false);
+        ipaddrTrackButton.addActionListener(new TrackIP());
+        loginPanel.add(ipaddrTrackButton);
 
-        ip = new JLabel("");
+        ipaddrLogoutButton = new JButton("Logout", new ImageIcon("src/main/resources/LogoutIcon.png"));
+        ipaddrLogoutButton.setBounds(415, 175, 100, 25);
+        ipaddrLogoutButton.setVisible(false);
+        ipaddrLogoutButton.addActionListener(new Logout());
+        loginPanel.add(ipaddrLogoutButton);
+
+        ip = new JLabel();
         ip.setBounds(10, 80, 400, 25);
         ip.setVisible(false);
-        loginpanel.add(ip);
+        loginPanel.add(ip);
 
-        hostname = new JLabel("");
+        hostname = new JLabel();
         hostname.setBounds(10, 100, 400, 25);
         hostname.setVisible(false);
-        loginpanel.add(hostname);
+        loginPanel.add(hostname);
 
-        orga = new JLabel("");
+        orga = new JLabel();
         orga.setBounds(10, 120, 400, 25);
         orga.setVisible(false);
-        loginpanel.add(orga);
+        loginPanel.add(orga);
 
-        location = new JLabel("");
+        location = new JLabel();
         location.setBounds(10, 140, 400, 25);
         location.setVisible(false);
-        loginpanel.add(location);
+        loginPanel.add(location);
 
         loc = new JTextField();
         loc.setBounds(10, 160, 400, 25);
         loc.setBorder(null);
         loc.setEditable(false);
         loc.setVisible(false);
-        loginpanel.add(loc);
+        loginPanel.add(loc);
 
         ip.setForeground(Color.BLUE);
         hostname.setForeground(Color.BLACK);
