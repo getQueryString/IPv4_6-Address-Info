@@ -1,14 +1,16 @@
 // Copyright© by Fin
 
 import javax.swing.*;
+import javax.swing.plaf.IconUIResource;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Main {
 
+    public static JFrame frame;
+    public static JCheckBoxMenuItem alwaysOnTop;
     public static JPanel loginPanel;
     public static JLabel userLabel;
     public static JLabel ipaddrlabel;
@@ -49,16 +51,17 @@ public class Main {
         loginPanel = new JPanel();
         loginPanel.setLayout(null);
         JMenuBar bar = new JMenuBar();
-        JFrame frame = new JFrame("IPv4/6-Address-Info");
+        frame = new JFrame("IPv4/6-Address-Info");
         frame.setSize(540, 270);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(loginPanel);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/LocationIcon.png"));
         frame.getRootPane().setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
         //frame.setContentPane(new BackGroundPane("src/main/resources/IPInfo-BackgroundImage.jpg"));
 
-        // JMenu
+        // JMenu File
         JMenu data = new JMenu("File");
         data.setFont(new Font("Courier New", Font.BOLD, 12));
         bar.add(data);
@@ -66,16 +69,25 @@ public class Main {
         JMenuItem sourceCode = new JMenuItem("Source code");
         sourceCode.addActionListener(new Menu_File_Sourcecode());
         sourceCode.setFont(new Font("Courier New", Font.BOLD, 12));
+        data.add(sourceCode);
 
         JSeparator line = new JSeparator();
+        data.add(line);
 
         JMenuItem exit = new JMenuItem("Exit");
         exit.addActionListener(new Menu_File_Exit());
         exit.setFont(new Font("Courier New", Font.BOLD, 12));
-
-        data.add(sourceCode);
-        data.add(line);
         data.add(exit);
+
+        // JMenu View
+        JMenu view = new JMenu("View");
+        view.setFont(new Font("Courier New", Font.BOLD, 12));
+        bar.add(view);
+
+        alwaysOnTop = new JCheckBoxMenuItem("In foreground");
+        alwaysOnTop.addActionListener(new Menu_View_AlwaysOnTop());
+        alwaysOnTop.setFont(new Font("Courier New", Font.BOLD, 12));
+        view.add(alwaysOnTop);
 
         frame.setJMenuBar(bar);
 
