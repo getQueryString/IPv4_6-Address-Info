@@ -31,6 +31,10 @@ public class Login implements ActionListener {
             Main.ipaddrTrackButton.setVisible(true);
             Main.ipaddrLogoutButton.setVisible(true);
 
+            if (!(Main.ipaddrText.getText() == null)) {
+                Main.ipaddrText.setText("");
+            }
+
             JOptionPane optionPane = new JOptionPane("Successfully logged in", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, new ImageIcon("src/main/resources/TickedIcon.png"));
             JDialog dialog = optionPane.createDialog("Logged in");
             dialog.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/TickedIcon.png"));

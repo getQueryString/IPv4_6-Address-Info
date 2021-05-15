@@ -26,6 +26,7 @@ public class TrackIP implements ActionListener {
         Main.loc.setVisible(true);
         Main.ipaddrCopyLocationResult.setVisible(true);
         Main.ipaddrCopyLocationResult.addActionListener(new Track_CopyLocationResult_Function());
+
         //IPInfo ipInfo = IPInfo.builder().setToken("TOKEN").build();
         IPInfo ipInfo = IPInfo.builder().build();
 
