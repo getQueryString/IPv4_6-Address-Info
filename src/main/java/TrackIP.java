@@ -1,14 +1,17 @@
 // Copyright© by Fin
 
 import io.ipinfo.api.IPInfo;
+import io.ipinfo.api.errors.ErrorResponseException;
 import io.ipinfo.api.errors.RateLimitedException;
 import io.ipinfo.api.model.IPResponse;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.NoRouteToHostException;
 
 public class TrackIP implements ActionListener {
 
@@ -45,8 +48,21 @@ public class TrackIP implements ActionListener {
             writer.flush();
             writer.close();
 
-        } catch (RateLimitedException | IOException ex) {
-            System.out.println(ex);
+        } catch (RateLimitedException rateLimitedException) {
+            JOptionPane optionPane = new JOptionPane(rateLimitedException, JOptionPane.ERROR_MESSAGE);
+            JDialog dialog = optionPane.createDialog("RateLimitedException");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+        } catch (IOException ioException) {
+            JOptionPane optionPane = new JOptionPane(ioException, JOptionPane.ERROR_MESSAGE);
+            JDialog dialog = optionPane.createDialog("IOException");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+        } catch (ErrorResponseException errorResponseException) {
+            JOptionPane optionPane = new JOptionPane(errorResponseException, JOptionPane.ERROR_MESSAGE);
+            JDialog dialog = optionPane.createDialog("ErrorResponseException");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
         }
     }
 }

@@ -1,9 +1,7 @@
 // Copyright© by Fin
 
 import javax.swing.*;
-import javax.swing.plaf.IconUIResource;
 import java.awt.*;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -32,6 +30,7 @@ public class Main {
      * IDEAS:
      * Button for copying
      * Button for logout
+     * Button for resizeable
      */
 
     public static String OutputTime() {
