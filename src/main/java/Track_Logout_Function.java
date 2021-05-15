@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 public class Track_Logout_Function implements ActionListener {
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Logout.java");

@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 
 public class Track_CopyLocationResult_Function implements ActionListener {
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         StringSelection locationText = new StringSelection("https://www.google.com/maps/search/" + TrackIP.response.getLocation());

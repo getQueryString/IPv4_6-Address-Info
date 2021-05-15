@@ -7,12 +7,11 @@ import java.net.URI;
 
 public class Menu_File_Sourcecode implements ActionListener {
 
-
     public void actionPerformed(ActionEvent e) {
-        try{
+        try {
             URI uri = new URI("https://github.com/getQueryString/IPv4_6-Address-Info");
             Desktop.getDesktop().browse(uri);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex);
         }
     }

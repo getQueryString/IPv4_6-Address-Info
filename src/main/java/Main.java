@@ -29,7 +29,7 @@ public class Main {
 
     /**
      * IDEAS:
-     * Button for copying       |
+     * Button for copying       | CHECK
      * Button for logout        | CHECK
      * Struktogramm
      */
@@ -59,7 +59,6 @@ public class Main {
         frame.setLocationRelativeTo(null);
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/LocationIcon.png"));
         frame.getRootPane().setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
-        //frame.setContentPane(new BackGroundPane("src/main/resources/IPInfo-BackgroundImage.jpg"));
 
         // JMenu File
         JMenu data = new JMenu("File");
