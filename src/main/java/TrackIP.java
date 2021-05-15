@@ -6,14 +6,16 @@ import io.ipinfo.api.errors.RateLimitedException;
 import io.ipinfo.api.model.IPResponse;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.NoRouteToHostException;
 
 public class TrackIP implements ActionListener {
+
+    public static IPResponse response;
 
     public void actionPerformed(ActionEvent e) {
         System.out.println("TrackIP.java");
@@ -22,11 +24,13 @@ public class TrackIP implements ActionListener {
         Main.orga.setVisible(true);
         Main.location.setVisible(true);
         Main.loc.setVisible(true);
+        Main.ipaddrCopyLocationResult.setVisible(true);
+        Main.ipaddrCopyLocationResult.addActionListener(new Track_CopyLocationResult_Function());
         //IPInfo ipInfo = IPInfo.builder().setToken("TOKEN").build();
         IPInfo ipInfo = IPInfo.builder().build();
 
         try {
-            IPResponse response = ipInfo.lookupIP(Main.ipaddrText.getText());
+            response = ipInfo.lookupIP(Main.ipaddrText.getText());
             System.out.println("IRespone successful");
             Main.ip.setText("IPv4/6-Address : " + response.getIp());
             Main.hostname.setText("Hostname           : " + response.getHostname());
@@ -51,16 +55,19 @@ public class TrackIP implements ActionListener {
         } catch (RateLimitedException rateLimitedException) {
             JOptionPane optionPane = new JOptionPane(rateLimitedException, JOptionPane.ERROR_MESSAGE);
             JDialog dialog = optionPane.createDialog("RateLimitedException");
+            dialog.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/ErrorIcon.png"));
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
         } catch (IOException ioException) {
             JOptionPane optionPane = new JOptionPane(ioException, JOptionPane.ERROR_MESSAGE);
             JDialog dialog = optionPane.createDialog("IOException");
+            dialog.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/ErrorIcon.png"));
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
         } catch (ErrorResponseException errorResponseException) {
             JOptionPane optionPane = new JOptionPane(errorResponseException, JOptionPane.ERROR_MESSAGE);
             JDialog dialog = optionPane.createDialog("ErrorResponseException");
+            dialog.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/ErrorIcon.png"));
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
         }

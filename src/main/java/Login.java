@@ -1,11 +1,17 @@
 // Copyright© by Fin
 
+import jdk.nashorn.internal.scripts.JO;
+
 import javax.sound.sampled.*;
 import javax.swing.*;
+import javax.tools.Tool;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class Login implements ActionListener {
 
@@ -24,18 +30,28 @@ public class Login implements ActionListener {
             Main.ipaddrText.setVisible(true);
             Main.ipaddrTrackButton.setVisible(true);
             Main.ipaddrLogoutButton.setVisible(true);
+
+            JOptionPane optionPane = new JOptionPane("Successfully logged in", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, new ImageIcon("src/main/resources/TickedIcon.png"));
+            JDialog dialog = optionPane.createDialog("Logged in");
+            dialog.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/TickedIcon.png"));
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+
         } else if (!(usr.equals("")) && pw.equals("")) {
             Main.denied.setText("Password is missing!");
             Main.denied.setVisible(true);
+            Main.userText.setText("");
         } else if (usr.equals("") && !(pw.equals(""))) {
             Main.denied.setText("Username is missing!");
             Main.denied.setVisible(true);
+            Main.pwText.setText("");
         } else if (usr.equals("") && pw.equals("")) {
             /*Main.denied.setText("Password & username is missing!");
             Main.denied.setVisible(true);*/
             Main.denied.setVisible(false);
             JOptionPane optionPane = new JOptionPane("Enter login details!", JOptionPane.WARNING_MESSAGE);
             JDialog dialog = optionPane.createDialog("Login error");
+            dialog.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/ErrorIcon.png"));
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
 
@@ -68,13 +84,19 @@ public class Login implements ActionListener {
             /*Main.denied.setText("Access denied!");
             Main.denied.setVisible(true);*/
 
+            String file = "src/main/resources/LocationIcon.png";
+            Icon icon = new ImageIcon(file);
+
             Main.denied.setVisible(false);
-            JOptionPane optionPane = new JOptionPane("Access denied!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane optionPane = new JOptionPane("Access denied!", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane optionPane = new JOptionPane("Access denied!", JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, icon);
             JDialog dialog = optionPane.createDialog("Access denied");
+
+            dialog.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/ErrorIcon.png"));
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
-            System.exit(0);
-
+            Main.userText.setText("");
+            Main.pwText.setText("");
         }
     }
 }
