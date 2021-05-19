@@ -11,6 +11,17 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>8</source>
@@ -18,6 +29,21 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>CopyIcon.png</include>
+                    <include>ErrorIcon.png</include>
+                    <include>LocationIcon.png</include>
+                    <include>LoginIcon.png</include>
+                    <include>LoginIcon.png</include>
+                    <include>LogoutIcon.png</include>
+                    <include>StartIcon.png</include>
+                    <include>TickedIcon.png</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 
     <dependencies>

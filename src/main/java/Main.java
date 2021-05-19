@@ -1,7 +1,13 @@
 // Copyright© by Fin
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -29,9 +35,8 @@ public class Main {
 
     /**
      * IDEAS:
-     * Button for copying       | CHECK
-     * Button for logout        | CHECK
-     * Struktogramm
+     * <p>
+     * Improvements:
      */
 
     public static String OutputTime() {
@@ -46,7 +51,7 @@ public class Main {
         return ldt.format(df);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Settings
         jFramePanel = new JPanel();
         jFramePanel.setLayout(null);
@@ -93,6 +98,7 @@ public class Main {
         frame.setJMenuBar(bar);
 
         // JPanel_Login
+        // Username
         userLabel = new JLabel("Username:");
         userLabel.setBounds(10, 20, 80, 25);
         userLabel.setFont(new Font("Courier New", Font.BOLD, 14));
@@ -105,6 +111,7 @@ public class Main {
         userText.setForeground(Color.YELLOW);
         jFramePanel.add(userText);
 
+        // Password
         pwLabel = new JLabel("Password:");
         pwLabel.setBounds(10, 50, 80, 25);
         pwLabel.setFont(new Font("Courier New", Font.BOLD, 14));
@@ -117,12 +124,7 @@ public class Main {
         pwText.setForeground(Color.YELLOW);
         jFramePanel.add(pwText);
 
-        loginButton = new JButton("Login", new ImageIcon("src/main/resources/LoginIcon.png"));
-        loginButton.setBounds(10, 80, 90, 25);
-        loginButton.setFont(loginButton.getFont().deriveFont(11f));
-        loginButton.addActionListener(new Login());
-        jFramePanel.add(loginButton);
-
+        // Access denied
         denied = new JLabel();
         denied.setBounds(10, 110, 200, 25);
         denied.setForeground(Color.RED);
@@ -143,26 +145,58 @@ public class Main {
         ipaddrText.setVisible(false);
         jFramePanel.add(ipaddrText);
 
-        ipaddrTrackButton = new JButton("Track", new ImageIcon("src/main/resources/StartIcon.png"));
-        ipaddrTrackButton.setBounds(10, 50, 90, 25);
-        ipaddrTrackButton.setFont(ipaddrTrackButton.getFont().deriveFont(11f));
-        ipaddrTrackButton.setVisible(false);
-        ipaddrTrackButton.addActionListener(new TrackIP());
-        jFramePanel.add(ipaddrTrackButton);
+        // Buttons
+        try {
+            URL login_icon = new URL("https://i.ibb.co/LJM9vBp/Login-Icon.png");
+            URL start_icon = new URL("https://i.ibb.co/PgGfZ7m/Start-Icon.png");
+            URL logout_icon = new URL("https://i.ibb.co/nzywhZ3/Logout-Icon.png");
+            URL copy_icon = new URL("https://i.ibb.co/JzrhVkW/CopyIcon.png");
 
-        ipaddrLogoutButton = new JButton("Logout", new ImageIcon("src/main/resources/LogoutIcon.png"));
-        ipaddrLogoutButton.setBounds(414, 175, 101, 25);
-        ipaddrLogoutButton.setFont(ipaddrLogoutButton.getFont().deriveFont(11f));
-        ipaddrLogoutButton.setVisible(false);
-        ipaddrLogoutButton.addActionListener(new Track_Logout_Function());
-        jFramePanel.add(ipaddrLogoutButton);
+            BufferedImage login = ImageIO.read(login_icon);
+            BufferedImage start = ImageIO.read(start_icon);
+            BufferedImage logout = ImageIO.read(logout_icon);
+            BufferedImage copy = ImageIO.read(copy_icon);
 
-        ipaddrCopyLocationResult = new JButton("Location", new ImageIcon("src/main/resources/CopyIcon.png"));
-        ipaddrCopyLocationResult.setBounds(414, 145, 101, 25);
-        ipaddrCopyLocationResult.setFont(ipaddrCopyLocationResult.getFont().deriveFont(11f));
-        ipaddrCopyLocationResult.setVisible(false);
-        jFramePanel.add(ipaddrCopyLocationResult);
+            // JPanel_Login
+            // loginButton = new JButton("Login", new ImageIcon("src/main/resources/LoginIcon.png"));
+            loginButton = new JButton("Login", new ImageIcon(login));
+            loginButton.setBounds(10, 80, 90, 25);
+            loginButton.setFont(loginButton.getFont().deriveFont(11f));
+            loginButton.addActionListener(new Login());
+            jFramePanel.add(loginButton);
 
+            // JPanel_Track
+            ipaddrTrackButton = new JButton("Track", new ImageIcon(start));
+            ipaddrTrackButton.setBounds(10, 50, 90, 25);
+            ipaddrTrackButton.setFont(ipaddrTrackButton.getFont().deriveFont(11f));
+            ipaddrTrackButton.setVisible(false);
+            ipaddrTrackButton.addActionListener(new TrackIP());
+            jFramePanel.add(ipaddrTrackButton);
+
+            ipaddrLogoutButton = new JButton("Logout", new ImageIcon(logout));
+            ipaddrLogoutButton.setBounds(414, 175, 101, 25);
+            ipaddrLogoutButton.setFont(ipaddrLogoutButton.getFont().deriveFont(11f));
+            ipaddrLogoutButton.setVisible(false);
+            ipaddrLogoutButton.addActionListener(new Track_Logout_Function());
+            jFramePanel.add(ipaddrLogoutButton);
+
+            ipaddrCopyLocationResult = new JButton("Location", new ImageIcon(copy));
+            ipaddrCopyLocationResult.setBounds(414, 145, 101, 25);
+            ipaddrCopyLocationResult.setFont(ipaddrCopyLocationResult.getFont().deriveFont(11f));
+            ipaddrCopyLocationResult.setVisible(false);
+            jFramePanel.add(ipaddrCopyLocationResult);
+
+        } catch (Exception exception) {
+
+            String[] options = {"Exit"};
+            int optionPane = JOptionPane.showOptionDialog(null, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+
+            if (optionPane == JOptionPane.YES_OPTION) {
+                System.out.println("Test");
+            }
+        }
+
+        // Track output
         ip = new JLabel();
         ip.setBounds(10, 80, 400, 25);
         ip.setVisible(false);

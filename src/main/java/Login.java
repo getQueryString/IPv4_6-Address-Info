@@ -15,8 +15,8 @@ import java.net.URL;
 
 public class Login implements ActionListener {
 
+    @Deprecated
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Login.java");
         String usr = Main.userText.getText();
         String pw = Main.pwText.getText();
         if (usr.equals("1") && pw.equals("2")) {
@@ -58,31 +58,6 @@ public class Login implements ActionListener {
             dialog.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/ErrorIcon.png"));
             dialog.setAlwaysOnTop(true);
             dialog.setVisible(true);
-
-            /*try {
-
-                File file = new File("src/main/resources/sound.mp3");
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-
-            } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
-                JOptionPane optionPane = new JOptionPane(unsupportedAudioFileException, JOptionPane.ERROR_MESSAGE);
-                JDialog dialog = optionPane.createDialog("UnsupportedAudioFileException");
-                dialog.setAlwaysOnTop(true);
-                dialog.setVisible(true);
-            } catch (IOException ioException) {
-                JOptionPane optionPane = new JOptionPane(ioException, JOptionPane.ERROR_MESSAGE);
-                JDialog dialog = optionPane.createDialog("IOException");
-                dialog.setAlwaysOnTop(true);
-                dialog.setVisible(true);
-            } catch (LineUnavailableException lineUnavailableException) {
-                JOptionPane optionPane = new JOptionPane(lineUnavailableException, JOptionPane.ERROR_MESSAGE);
-                JDialog dialog = optionPane.createDialog("LineUnavailableException");
-                dialog.setAlwaysOnTop(true);
-                dialog.setVisible(true);
-            }*/
 
         } else {
             /*Main.denied.setText("Access denied!");
