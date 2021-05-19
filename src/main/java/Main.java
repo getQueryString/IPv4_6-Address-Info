@@ -33,11 +33,6 @@ public class Main {
     public static JButton ipaddrLogoutButton;
     public static JButton ipaddrCopyLocationResult;
 
-    /**
-     * IDEAS:
-     * <p>
-     * Improvements:
-     */
 
     public static String OutputTime() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss,SS");
