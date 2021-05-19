@@ -33,7 +33,6 @@ public class Main {
     public static JButton ipaddrLogoutButton;
     public static JButton ipaddrCopyLocationResult;
 
-
     public static String OutputTime() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss,SS");
         LocalDateTime ldt = LocalDateTime.now();
@@ -46,7 +45,7 @@ public class Main {
         return ldt.format(df);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         // Settings
         jFramePanel = new JPanel();
         jFramePanel.setLayout(null);
