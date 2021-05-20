@@ -37,6 +37,10 @@ public class Login implements ActionListener {
             Main.location.setText("");
             Main.loc.setText("");
 
+            Main.userText.setText("");
+            Main.pwText.setText("");
+            Main.denied.setText("");
+
             try {
                 URL ticked_icon = new URL("https://i.ibb.co/bmJ6rTy/Ticked-Icon.png");
                 BufferedImage ticked = ImageIO.read(ticked_icon);

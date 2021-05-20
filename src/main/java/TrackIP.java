@@ -4,12 +4,10 @@ import io.ipinfo.api.IPInfo;
 import io.ipinfo.api.model.IPResponse;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
-import java.net.URL;
 
 public class TrackIP implements ActionListener {
 

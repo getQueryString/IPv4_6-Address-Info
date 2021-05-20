@@ -7,9 +7,8 @@ public class Track_Logout_Function implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Main.userText.setText("");
-        Main.pwText.setText("");
-        Main.denied.setText("");
+
+        // Change panel layout
         Main.denied.setVisible(true);
         Main.userLabel.setVisible(true);
         Main.userText.setVisible(true);
