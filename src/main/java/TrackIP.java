@@ -9,12 +9,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
+import java.net.URL;
 
 public class TrackIP implements ActionListener {
 
     public static IPResponse response;
 
     public void actionPerformed(ActionEvent e) {
+
+        // Change panel layout
         Main.ip.setVisible(true);
         Main.hostname.setVisible(true);
         Main.orga.setVisible(true);
@@ -23,7 +26,6 @@ public class TrackIP implements ActionListener {
         Main.ipaddrCopyLocationResult.setVisible(true);
         Main.ipaddrCopyLocationResult.addActionListener(new Track_CopyLocationResult_Function());
 
-        //IPInfo ipInfo = IPInfo.builder().setToken("TOKEN").build();
         IPInfo ipInfo = IPInfo.builder().build();
 
         try {
@@ -33,7 +35,6 @@ public class TrackIP implements ActionListener {
             Main.orga.setText("Organisation      : " + response.getOrg());
             Main.location.setText("Country                : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity());
             Main.loc.setText("Location              : " + response.getLocation());
-
 
             FileWriter writer;
             File dat = new File("addrinf(" + Main.OutputDate() + ").log");
@@ -49,11 +50,10 @@ public class TrackIP implements ActionListener {
             writer.close();
 
         } catch (Exception exception) {
-            JOptionPane optionPane = new JOptionPane(exception, JOptionPane.ERROR_MESSAGE);
-            JDialog dialog = optionPane.createDialog("ErrorException");
-            dialog.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/ErrorIcon.png"));
-            dialog.setAlwaysOnTop(true);
-            dialog.setVisible(true);
+
+            String[] options = {"Continue"};
+            JOptionPane.showOptionDialog(Main.frame, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+            System.out.println("Test");
         }
     }
 }

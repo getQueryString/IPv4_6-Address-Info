@@ -4,10 +4,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -33,6 +31,11 @@ public class Main {
     public static JButton ipaddrLogoutButton;
     public static JButton ipaddrCopyLocationResult;
 
+    /**
+     * Open addrinf button
+     * @return
+     */
+
     public static String OutputTime() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss,SS");
         LocalDateTime ldt = LocalDateTime.now();
@@ -45,7 +48,27 @@ public class Main {
         return ldt.format(df);
     }
 
+    public static void checkConnection() {
+        try {
+            URL check = new URL("https://imgbb.com");
+            URLConnection connection = check.openConnection();
+            connection.connect();
+            connection.getInputStream().close();
+
+        } catch (Exception exception) {
+            String[] options = {"Try again"};
+            int optionPane = JOptionPane.showOptionDialog(frame, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+
+            if (optionPane == JOptionPane.YES_OPTION) {
+                checkConnection();
+            } else {
+                System.exit(0);
+            }
+        }
+    }
+
     public static void main(String[] args) {
+        checkConnection();
         // Settings
         jFramePanel = new JPanel();
         jFramePanel.setLayout(null);
@@ -56,7 +79,6 @@ public class Main {
         frame.add(jFramePanel);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
-        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/resources/LocationIcon.png"));
         frame.getRootPane().setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 
         // JMenu File
@@ -139,18 +161,57 @@ public class Main {
         ipaddrText.setVisible(false);
         jFramePanel.add(ipaddrText);
 
-        // Buttons
+
+        // Track output
+        ip = new JLabel();
+        ip.setBounds(10, 80, 400, 25);
+        ip.setVisible(false);
+        jFramePanel.add(ip);
+
+        hostname = new JLabel();
+        hostname.setBounds(10, 100, 400, 25);
+        hostname.setVisible(false);
+        jFramePanel.add(hostname);
+
+        orga = new JLabel();
+        orga.setBounds(10, 120, 400, 25);
+        orga.setVisible(false);
+        jFramePanel.add(orga);
+
+        location = new JLabel();
+        location.setBounds(10, 140, 400, 25);
+        location.setVisible(false);
+        jFramePanel.add(location);
+
+        loc = new JLabel();
+        loc.setBounds(10, 160, 400, 25);
+        loc.setVisible(false);
+        jFramePanel.add(loc);
+
+        // Set color
+        ip.setForeground(Color.BLUE);
+        hostname.setForeground(Color.BLACK);
+        orga.setForeground(Color.RED);
+        location.setForeground(Color.BLUE);
+        loc.setForeground(Color.BLACK);
+
+        // Attempted connection
         try {
             URL login_icon = new URL("https://i.ibb.co/LJM9vBp/Login-Icon.png");
             URL start_icon = new URL("https://i.ibb.co/PgGfZ7m/Start-Icon.png");
             URL logout_icon = new URL("https://i.ibb.co/nzywhZ3/Logout-Icon.png");
             URL copy_icon = new URL("https://i.ibb.co/JzrhVkW/CopyIcon.png");
+            URL location_icon = new URL("https://i.ibb.co/9NDfm3R/Location-Icon.png");
 
             BufferedImage login = ImageIO.read(login_icon);
             BufferedImage start = ImageIO.read(start_icon);
             BufferedImage logout = ImageIO.read(logout_icon);
             BufferedImage copy = ImageIO.read(copy_icon);
+            BufferedImage location = ImageIO.read(location_icon);
 
+            frame.setIconImage(location);
+
+            // Buttons
             // JPanel_Login
             // loginButton = new JButton("Login", new ImageIcon("src/main/resources/LoginIcon.png"));
             loginButton = new JButton("Login", new ImageIcon(login));
@@ -183,45 +244,9 @@ public class Main {
         } catch (Exception exception) {
 
             String[] options = {"Exit"};
-            int optionPane = JOptionPane.showOptionDialog(null, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
-
-            if (optionPane == JOptionPane.YES_OPTION) {
-                System.out.println("Test");
-            }
+            JOptionPane.showOptionDialog(frame, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+            System.exit(0);
         }
-
-        // Track output
-        ip = new JLabel();
-        ip.setBounds(10, 80, 400, 25);
-        ip.setVisible(false);
-        jFramePanel.add(ip);
-
-        hostname = new JLabel();
-        hostname.setBounds(10, 100, 400, 25);
-        hostname.setVisible(false);
-        jFramePanel.add(hostname);
-
-        orga = new JLabel();
-        orga.setBounds(10, 120, 400, 25);
-        orga.setVisible(false);
-        jFramePanel.add(orga);
-
-        location = new JLabel();
-        location.setBounds(10, 140, 400, 25);
-        location.setVisible(false);
-        jFramePanel.add(location);
-
-        loc = new JLabel();
-        loc.setBounds(10, 160, 400, 25);
-        loc.setVisible(false);
-        jFramePanel.add(loc);
-
-        ip.setForeground(Color.BLUE);
-        hostname.setForeground(Color.BLACK);
-        orga.setForeground(Color.RED);
-        location.setForeground(Color.BLUE);
-        loc.setForeground(Color.BLACK);
-
         frame.setVisible(true);
     }
 }
