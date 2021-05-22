@@ -4,6 +4,7 @@ import io.ipinfo.api.IPInfo;
 import io.ipinfo.api.model.IPResponse;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -16,16 +17,21 @@ public class TrackIP implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         // Change panel layout
+        // JPanel_Track items
         Main.ip.setVisible(true);
         Main.hostname.setVisible(true);
         Main.orga.setVisible(true);
         Main.location.setVisible(true);
         Main.loc.setVisible(true);
+
+        // Buttons
         Main.ipaddrCopyLocationResult.setVisible(true);
         Main.ipaddrCopyLocationResult.addActionListener(new Track_CopyLocationResult_Function());
+        Main.ipaddrOpenTodaysFile.setVisible(true);
 
         IPInfo ipInfo = IPInfo.builder().build();
 
+        // Get address-info
         try {
             response = ipInfo.lookupIP(Main.ipaddrText.getText());
             Main.ip.setText("IPv4/6-Address : " + response.getIp());
@@ -34,24 +40,31 @@ public class TrackIP implements ActionListener {
             Main.location.setText("Country                : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity());
             Main.loc.setText("Location              : " + response.getLocation());
 
-            FileWriter writer;
-            File dat = new File("addrinf(" + Main.OutputDate() + ").log");
-            writer = new FileWriter(dat, true);
-            writer.write("- - - - - - Time: " + Main.OutputTime() + " - - - - - -\n"
-                    + "IPv4/6-Address : " + response.getIp() + "\n"
-                    + "Hostname       : " + response.getHostname() + "\n"
-                    + "Organisation   : " + response.getOrg() + "\n"
-                    + "Country        : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity()
-                    + "\n"
-                    + "Location       : " + response.getLocation() + "\n\n");
-            writer.flush();
-            writer.close();
-
         } catch (Exception exception) {
-
             String[] options = {"Continue"};
             JOptionPane.showOptionDialog(Main.frame, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
-            System.out.println("Test");
+        }
+
+        // Save today's address-info
+        if (!Main.location.getText().contains("null")) {
+            try {
+                FileWriter writer;
+                File dat = new File("addrinf(" + Main.OutputDate() + ").log");
+                writer = new FileWriter(dat, true);
+                writer.write("- - - - - - Time: " + Main.OutputTime() + " - - - - - -\n"
+                        + "IPv4/6-Address : " + response.getIp() + "\n"
+                        + "Hostname       : " + response.getHostname() + "\n"
+                        + "Organisation   : " + response.getOrg() + "\n"
+                        + "Country        : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity()
+                        + "\n"
+                        + "Location       : " + response.getLocation() + "\n\n");
+                writer.flush();
+                writer.close();
+
+            } catch (Exception exception) {
+                String[] options = {"Continue"};
+                JOptionPane.showOptionDialog(Main.frame, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+            }
         }
     }
 }

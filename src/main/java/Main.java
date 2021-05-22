@@ -30,9 +30,11 @@ public class Main {
     public static JButton ipaddrTrackButton;
     public static JButton ipaddrLogoutButton;
     public static JButton ipaddrCopyLocationResult;
+    public static JButton ipaddrOpenTodaysFile;
 
     /**
      * Open addrinf button
+     *
      * @return
      */
 
@@ -161,7 +163,6 @@ public class Main {
         ipaddrText.setVisible(false);
         jFramePanel.add(ipaddrText);
 
-
         // Track output
         ip = new JLabel();
         ip.setBounds(10, 80, 400, 25);
@@ -202,12 +203,14 @@ public class Main {
             URL logout_icon = new URL("https://i.ibb.co/nzywhZ3/Logout-Icon.png");
             URL copy_icon = new URL("https://i.ibb.co/JzrhVkW/CopyIcon.png");
             URL location_icon = new URL("https://i.ibb.co/9NDfm3R/Location-Icon.png");
+            URL openfolder_icon = new URL("https://i.ibb.co/vVZ5bRV/Open-Folder-Icon.png");
 
             BufferedImage login = ImageIO.read(login_icon);
             BufferedImage start = ImageIO.read(start_icon);
             BufferedImage logout = ImageIO.read(logout_icon);
             BufferedImage copy = ImageIO.read(copy_icon);
             BufferedImage location = ImageIO.read(location_icon);
+            BufferedImage openfolder = ImageIO.read(openfolder_icon);
 
             frame.setIconImage(location);
 
@@ -239,10 +242,17 @@ public class Main {
             ipaddrCopyLocationResult.setBounds(414, 145, 101, 25);
             ipaddrCopyLocationResult.setFont(ipaddrCopyLocationResult.getFont().deriveFont(11f));
             ipaddrCopyLocationResult.setVisible(false);
+            ipaddrCopyLocationResult.addActionListener(new Track_CopyLocationResult_Function());
             jFramePanel.add(ipaddrCopyLocationResult);
 
-        } catch (Exception exception) {
+            ipaddrOpenTodaysFile = new JButton("Today's", new ImageIcon(openfolder));
+            ipaddrOpenTodaysFile.setBounds(414, 115, 101, 25);
+            ipaddrOpenTodaysFile.setFont(ipaddrOpenTodaysFile.getFont().deriveFont(11f));
+            ipaddrOpenTodaysFile.setVisible(false);
+            ipaddrOpenTodaysFile.addActionListener(new Track_OpenTodaysFile_Function());
+            jFramePanel.add(ipaddrOpenTodaysFile);
 
+        } catch (Exception exception) {
             String[] options = {"Exit"};
             JOptionPane.showOptionDialog(frame, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
             System.exit(0);

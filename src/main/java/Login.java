@@ -17,13 +17,17 @@ public class Login implements ActionListener {
 
             // Change panel layout
             Main.denied.setVisible(false);
+
+            // Label / Text
             Main.userLabel.setVisible(false);
             Main.userText.setVisible(false);
             Main.pwLabel.setVisible(false);
             Main.pwText.setVisible(false);
-            Main.loginButton.setVisible(false);
             Main.ipaddrlabel.setVisible(true);
             Main.ipaddrText.setVisible(true);
+
+            // Buttons
+            Main.loginButton.setVisible(false);
             Main.ipaddrTrackButton.setVisible(true);
             Main.ipaddrLogoutButton.setVisible(true);
 
