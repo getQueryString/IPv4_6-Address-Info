@@ -32,7 +32,7 @@ public class Login implements ActionListener {
             Main.ipaddrLogoutButton.setVisible(true);
 
             // Clear JPanel_Track items
-            if (!(Main.ipaddrText.getText() == null)) {
+            if (!(Main.ipaddrText.getText().equals(""))) {
                 Main.ipaddrText.setText("");
             }
             Main.ip.setText("");

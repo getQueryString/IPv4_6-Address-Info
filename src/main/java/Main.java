@@ -32,12 +32,6 @@ public class Main {
     public static JButton ipaddrCopyLocationResult;
     public static JButton ipaddrOpenTodaysFile;
 
-    /**
-     * Open addrinf button
-     *
-     * @return
-     */
-
     public static String OutputTime() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss,SS");
         LocalDateTime ldt = LocalDateTime.now();
