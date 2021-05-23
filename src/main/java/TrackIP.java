@@ -4,6 +4,8 @@ import io.ipinfo.api.IPInfo;
 import io.ipinfo.api.model.IPResponse;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -27,6 +29,16 @@ public class TrackIP implements ActionListener {
         Main.ipaddrCopyLocationResult.setVisible(true);
         Main.ipaddrCopyLocationResult.addActionListener(new Track_CopyLocationResult_Function());
         Main.ipaddrOpenTodaysFile.setVisible(true);
+
+        // Paste clipboard / continue with own
+        try {
+            String clipboard = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+            Main.ipaddrText.setText(clipboard);
+        } catch (Exception exception) {
+            String[] options = {"Proceed with own ip-address"};
+            JOptionPane.showOptionDialog(Main.frame, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+            Main.ipaddrText.setText("");
+        }
 
         IPInfo ipInfo = IPInfo.builder().build();
 

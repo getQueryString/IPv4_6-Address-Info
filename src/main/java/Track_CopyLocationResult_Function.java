@@ -17,13 +17,13 @@ public class Track_CopyLocationResult_Function implements ActionListener {
             clipboard.setContents(locationText, null);
         } else {
 
-            /*String[] options = {"Continue"};
-            JOptionPane.showOptionDialog(Main.frame, "Nothing to copy!", "ErrorException", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);*/
+            String[] options = {"Continue"};
+            JOptionPane.showOptionDialog(Main.frame, "Nothing to copy!", "ErrorException", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
 
-            JOptionPane optionPane = new JOptionPane("Nothing to copy!", JOptionPane.ERROR_MESSAGE);
+            /*JOptionPane optionPane = new JOptionPane("Nothing to copy!", JOptionPane.ERROR_MESSAGE);
             JDialog dialog = optionPane.createDialog("ErrorException");
             dialog.setAlwaysOnTop(true);
-            dialog.setVisible(true);
+            dialog.setVisible(true);*/
         }
     }
 }

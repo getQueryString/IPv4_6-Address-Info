@@ -25,6 +25,7 @@ public class Login implements ActionListener {
             Main.pwText.setVisible(false);
             Main.ipaddrlabel.setVisible(true);
             Main.ipaddrText.setVisible(true);
+            Main.ipaddrTextInfo.setVisible(true);
 
             // Buttons
             Main.loginButton.setVisible(false);
@@ -35,6 +36,7 @@ public class Login implements ActionListener {
             if (!(Main.ipaddrText.getText().equals(""))) {
                 Main.ipaddrText.setText("");
             }
+
             Main.ip.setText("");
             Main.hostname.setText("");
             Main.orga.setText("");

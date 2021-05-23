@@ -23,6 +23,7 @@ public class Main {
     public static JLabel orga;
     public static JLabel location;
     public static JLabel loc;
+    public static JLabel ipaddrTextInfo;
     public static JTextField userText;
     public static JTextField ipaddrText;
     public static JPasswordField pwText;
@@ -150,12 +151,19 @@ public class Main {
         ipaddrlabel.setVisible(false);
         jFramePanel.add(ipaddrlabel);
 
-        ipaddrText = new JTextField(64);
-        ipaddrText.setBounds(120, 20, 165, 25);
+        ipaddrText = new JTextField();
+        ipaddrText.setBounds(120, 20, 240, 25);
         ipaddrText.setBackground(Color.BLACK);
         ipaddrText.setForeground(Color.YELLOW);
+        ipaddrText.setEditable(false);
         ipaddrText.setVisible(false);
         jFramePanel.add(ipaddrText);
+
+        ipaddrTextInfo = new JLabel("COPY IP-ADDRESS INTO CLIPBOARD!");
+        ipaddrTextInfo.setBounds(120, 50, 208, 25);
+        ipaddrTextInfo.setForeground(Color.RED);
+        ipaddrTextInfo.setVisible(false);
+        jFramePanel.add(ipaddrTextInfo);
 
         // Track output
         ip = new JLabel();
