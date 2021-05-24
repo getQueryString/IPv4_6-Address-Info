@@ -17,6 +17,7 @@ public class Track_Logout_Function implements ActionListener {
         Main.loginButton.setVisible(true);
         Main.ipaddrlabel.setVisible(false);
         Main.ipaddrText.setVisible(false);
+        Main.ipaddrTextInfo.setVisible(false);
 
         // Buttons
         Main.ipaddrTrackButton.setVisible(false);

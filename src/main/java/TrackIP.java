@@ -33,13 +33,22 @@ public class TrackIP implements ActionListener {
         // Paste clipboard / continue with own
         try {
             String clipboard = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-            Main.ipaddrText.setText(clipboard);
+            if ((clipboard.contains(".")) || (clipboard.contains(":"))) {
+                Main.ipaddrText.setText(clipboard);
+                IPInfoBuild();
+            } else {
+                String[] options = {"Continue"};
+                JOptionPane.showOptionDialog(Main.frame, "Clipboard does'nt contain a possible IPv4/6-address!", "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+            }
         } catch (Exception exception) {
             String[] options = {"Proceed with own ip-address"};
             JOptionPane.showOptionDialog(Main.frame, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
             Main.ipaddrText.setText("");
         }
+    }
 
+    public void IPInfoBuild() {
+        System.out.println("SEARCH");
         IPInfo ipInfo = IPInfo.builder().build();
 
         // Get address-info
