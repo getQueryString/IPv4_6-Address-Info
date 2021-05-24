@@ -152,7 +152,7 @@ public class Main {
         jFramePanel.add(ipaddrlabel);
 
         ipaddrText = new JTextField();
-        ipaddrText.setBounds(120, 20, 240, 25);
+        ipaddrText.setBounds(120, 20, 280, 25);
         ipaddrText.setBackground(Color.BLACK);
         ipaddrText.setForeground(Color.YELLOW);
         ipaddrText.setEditable(false);
