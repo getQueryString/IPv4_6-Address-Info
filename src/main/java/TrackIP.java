@@ -8,8 +8,6 @@ import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileWriter;
 
@@ -45,15 +43,16 @@ public class TrackIP implements ActionListener {
                     cC++;
                 }
             }
-            System.out.println(pC + " " + cC);
 
             if (clipboard.matches("^[a-zA-Z0-9.:]+$") && (clipboard.contains(":") || clipboard.contains(".")
                     && !clipboard.contains(" ")) && clipboard.length() >= 7 && (pC == 3 || (cC >= 5 && cC <= 7))) {
                 Main.ipaddrText.setText(clipboard);
                 IPInfoBuild();
+
             } else {
                 String[] options = {"Continue"};
                 JOptionPane.showOptionDialog(Main.frame, "Clipboard does'nt contain a possible IPv4/6-address!", eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+
             }
         } catch (Exception exception) {
             IPInfoBuild();
@@ -67,7 +66,6 @@ public class TrackIP implements ActionListener {
         Main.ipaddrCopyLocationResult.addActionListener(new Track_CopyLocationResult_Function());
         Main.ipaddrOpenTodaysFile.setVisible(true);
 
-        System.out.println("SEARCH");
         IPInfo ipInfo = IPInfo.builder().build();
 
         // Get address-info
@@ -80,9 +78,11 @@ public class TrackIP implements ActionListener {
                 Main.orga.setText("Organisation      : " + response.getOrg());
                 Main.location.setText("Country                : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity());
                 Main.loc.setText("Location              : " + response.getLocation());
+
             } else {
                 String[] options = {"Continue"};
                 JOptionPane.showOptionDialog(Main.frame, "IP-address not found!", eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+
             }
         } catch (Exception exception) {
             String[] options = {"Continue"};
