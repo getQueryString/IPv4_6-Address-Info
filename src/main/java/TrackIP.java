@@ -17,9 +17,13 @@ public class TrackIP implements ActionListener {
     private String eE = "ErrorException";
 
     public void actionPerformed(ActionEvent e) {
+        startTrack();
+    }
 
+    public void startTrack() {
         // Change panel layout
         // JPanel_Track items
+        Main.ip.setVisible(true);
         Main.hostname.setVisible(true);
         Main.orga.setVisible(true);
         Main.location.setVisible(true);
@@ -63,7 +67,7 @@ public class TrackIP implements ActionListener {
 
         // Buttons
         Main.ipaddrCopyLocationResult.setVisible(true);
-        Main.ipaddrCopyLocationResult.addActionListener(new Track_CopyLocationResult_Function());
+        Main.ipaddrCopyLocationResult.addActionListener(new Track_CLR_Function());
         Main.ipaddrOpenTodaysFile.setVisible(true);
 
         IPInfo ipInfo = IPInfo.builder().build();
@@ -73,13 +77,18 @@ public class TrackIP implements ActionListener {
             response = ipInfo.lookupIP(Main.ipaddrText.getText());
             Main.ip.setText("IPv4/6-Address : " + response.getIp());
             if (!Main.ip.getText().contains("null")) {
-                Main.ip.setVisible(true);
                 Main.hostname.setText("Hostname           : " + response.getHostname());
                 Main.orga.setText("Organisation      : " + response.getOrg());
                 Main.location.setText("Country                : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity());
                 Main.loc.setText("Location              : " + response.getLocation());
 
             } else {
+                // JPanel_Track items
+                Main.hostname.setVisible(false);
+                Main.orga.setVisible(false);
+                Main.location.setVisible(false);
+                Main.loc.setVisible(false);
+                Main.location.setText("null");
                 String[] options = {"Continue"};
                 JOptionPane.showOptionDialog(Main.frame, "IP-address not found!", eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
 

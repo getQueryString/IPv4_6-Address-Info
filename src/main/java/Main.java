@@ -244,7 +244,7 @@ public class Main {
             ipaddrCopyLocationResult.setBounds(414, 145, 101, 25);
             ipaddrCopyLocationResult.setFont(ipaddrCopyLocationResult.getFont().deriveFont(11f));
             ipaddrCopyLocationResult.setVisible(false);
-            ipaddrCopyLocationResult.addActionListener(new Track_CopyLocationResult_Function());
+            ipaddrCopyLocationResult.addActionListener(new Track_CLR_Function());
             jFramePanel.add(ipaddrCopyLocationResult);
 
             ipaddrOpenTodaysFile = new JButton("Today's", new ImageIcon(openfolder));
@@ -259,6 +259,7 @@ public class Main {
             JOptionPane.showOptionDialog(frame, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
             System.exit(0);
         }
+
         frame.setVisible(true);
     }
 }
