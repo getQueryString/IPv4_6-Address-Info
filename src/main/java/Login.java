@@ -1,6 +1,7 @@
 // Copyright© by Fin
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,15 @@ public class Login implements ActionListener {
 
     @Deprecated
     public void actionPerformed(ActionEvent e) {
+
+        // Background audio
+        Main.mii.stop();
+
+        FloatControl mii_trap_floatControl = (FloatControl) Main.mii_trap.getControl(FloatControl.Type.MASTER_GAIN);
+        mii_trap_floatControl.setValue(20f * (float) Math.log10(0.3));
+        Main.mii_trap.start();
+
+        // Query
         String usr = Main.userText.getText();
         String pw = Main.pwText.getText();
         if (usr.equals("1") && pw.equals("2")) {

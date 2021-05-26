@@ -1,9 +1,12 @@
 // Copyright© by Fin
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.time.LocalDateTime;
@@ -32,6 +35,15 @@ public class Main {
     public static JButton ipaddrLogoutButton;
     public static JButton ipaddrCopyLocationResult;
     public static JButton ipaddrOpenTodaysFile;
+    public static JSlider slider;
+    public static JMenuBar bar;
+
+    public static Clip mii;
+    public static Clip mii_trap;
+
+    public static FloatControl mii_floatControl;
+
+    public static String eE = "ErrorException";
 
     public static String OutputTime() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss,SS");
@@ -69,7 +81,7 @@ public class Main {
         // Settings
         jFramePanel = new JPanel();
         jFramePanel.setLayout(null);
-        JMenuBar bar = new JMenuBar();
+        bar = new JMenuBar();
         frame = new JFrame("IPv4/6-Address-Info");
         frame.setSize(540, 270);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -108,6 +120,20 @@ public class Main {
         frame.setAlwaysOnTop(true);
         view.add(alwaysOnTop);
 
+        // JMenu Sound
+        JMenu sound = new JMenu("Sound");
+        sound.setFont(new Font("Courier New", Font.BOLD, 12));
+        bar.add(sound);
+
+        slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+        slider.setMinorTickSpacing(10);
+        slider.setMajorTickSpacing(20);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+        slider.addChangeListener(new Sound_BackgroundAudio());
+        sound.add(slider);
+
+        // Set bar
         frame.setJMenuBar(bar);
 
         // JPanel_Login
@@ -200,10 +226,10 @@ public class Main {
 
         // Attempted connection
         try {
-            URL login_icon = new URL("https://i.ibb.co/LJM9vBp/Login-Icon.png");
-            URL start_icon = new URL("https://i.ibb.co/PgGfZ7m/Start-Icon.png");
-            URL logout_icon = new URL("https://i.ibb.co/nzywhZ3/Logout-Icon.png");
-            URL copy_icon = new URL("https://i.ibb.co/JzrhVkW/CopyIcon.png");
+            URL login_icon = new URL("https://i.ibb.co/Mgz9p6J/Login-Icon.png");
+            URL start_icon = new URL("https://i.ibb.co/KF81rcz/Start-Icon.png");
+            URL logout_icon = new URL("https://i.ibb.co/4PRKSQf/Logout-Icon.png");
+            URL copy_icon = new URL("https://i.ibb.co/Zz1M52b/CopyIcon.png");
             URL location_icon = new URL("https://i.ibb.co/9NDfm3R/Location-Icon.png");
             URL openfolder_icon = new URL("https://i.ibb.co/vVZ5bRV/Open-Folder-Icon.png");
 
@@ -261,5 +287,29 @@ public class Main {
         }
 
         frame.setVisible(true);
+
+        // Background audio
+        try {
+
+            File audio_mii = new File("src/main/resources/mii.wav");
+            File audio_mii_trap = new File("src/main/resources/mii_trap.wav");
+            AudioInputStream mii_audioInputStream = AudioSystem.getAudioInputStream(audio_mii);
+            AudioInputStream mii_trap_audioInputStream = AudioSystem.getAudioInputStream(audio_mii_trap);
+
+            mii = AudioSystem.getClip();
+            mii.open(mii_audioInputStream);
+            mii_floatControl = (FloatControl) mii.getControl(FloatControl.Type.MASTER_GAIN);
+            //mii_floatControl.setValue(20f * (float) Math.log10(1));
+            mii.loop(Clip.LOOP_CONTINUOUSLY);
+
+            mii_trap = AudioSystem.getClip();
+            mii_trap.open(mii_trap_audioInputStream);
+            mii_trap.loop(Clip.LOOP_CONTINUOUSLY);
+            mii_trap.stop();
+
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            String[] options = {"Continue"};
+            JOptionPane.showOptionDialog(frame, ex, eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+        }
     }
 }

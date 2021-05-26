@@ -14,13 +14,13 @@ import java.io.FileWriter;
 public class TrackIP implements ActionListener {
 
     public static IPResponse response;
-    private String eE = "ErrorException";
 
     public void actionPerformed(ActionEvent e) {
         startTrack();
     }
 
     public void startTrack() {
+
         // Change panel layout
         // JPanel_Track items
         Main.ip.setVisible(true);
@@ -55,7 +55,7 @@ public class TrackIP implements ActionListener {
 
             } else {
                 String[] options = {"Continue"};
-                JOptionPane.showOptionDialog(Main.frame, "Clipboard does'nt contain a possible IPv4/6-address!", eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+                JOptionPane.showOptionDialog(Main.frame, "Clipboard does'nt contain a possible IPv4/6-address!", Main.eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
 
             }
         } catch (Exception exception) {
@@ -90,12 +90,12 @@ public class TrackIP implements ActionListener {
                 Main.loc.setVisible(false);
                 Main.location.setText("null");
                 String[] options = {"Continue"};
-                JOptionPane.showOptionDialog(Main.frame, "IP-address not found!", eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+                JOptionPane.showOptionDialog(Main.frame, "IP-address not found!", Main.eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
 
             }
         } catch (Exception exception) {
             String[] options = {"Continue"};
-            JOptionPane.showOptionDialog(Main.frame, exception, eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+            JOptionPane.showOptionDialog(Main.frame, exception, Main.eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
         }
 
         // Save today's address-info
@@ -116,7 +116,7 @@ public class TrackIP implements ActionListener {
 
             } catch (Exception exception) {
                 String[] options = {"Continue"};
-                JOptionPane.showOptionDialog(Main.frame, exception, eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+                JOptionPane.showOptionDialog(Main.frame, exception, Main.eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
             }
         }
     }
