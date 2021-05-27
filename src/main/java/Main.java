@@ -133,6 +133,31 @@ public class Main {
         slider.addChangeListener(new Sound_BackgroundAudio());
         sound.add(slider);
 
+        // Background audio
+        try {
+
+            File audio_mii = new File("src/main/resources/mii.wav");
+            File audio_mii_trap = new File("src/main/resources/mii_trap.wav");
+            AudioInputStream mii_audioInputStream = AudioSystem.getAudioInputStream(audio_mii);
+            AudioInputStream mii_trap_audioInputStream = AudioSystem.getAudioInputStream(audio_mii_trap);
+
+            mii = AudioSystem.getClip();
+            mii.open(mii_audioInputStream);
+            mii_floatControl = (FloatControl) mii.getControl(FloatControl.Type.MASTER_GAIN);
+            //mii_floatControl.setValue(20f * (float) Math.log10(1));
+            mii.loop(Clip.LOOP_CONTINUOUSLY);
+
+            mii_trap = AudioSystem.getClip();
+            mii_trap.open(mii_trap_audioInputStream);
+            mii_trap.loop(Clip.LOOP_CONTINUOUSLY);
+            mii_trap.stop();
+
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            String[] options = {"Continue"};
+            JOptionPane.showOptionDialog(frame, ex, eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+        }
+
+
         // Set bar
         frame.setJMenuBar(bar);
 
@@ -287,29 +312,5 @@ public class Main {
         }
 
         frame.setVisible(true);
-
-        // Background audio
-        try {
-
-            File audio_mii = new File("src/main/resources/mii.wav");
-            File audio_mii_trap = new File("src/main/resources/mii_trap.wav");
-            AudioInputStream mii_audioInputStream = AudioSystem.getAudioInputStream(audio_mii);
-            AudioInputStream mii_trap_audioInputStream = AudioSystem.getAudioInputStream(audio_mii_trap);
-
-            mii = AudioSystem.getClip();
-            mii.open(mii_audioInputStream);
-            mii_floatControl = (FloatControl) mii.getControl(FloatControl.Type.MASTER_GAIN);
-            //mii_floatControl.setValue(20f * (float) Math.log10(1));
-            mii.loop(Clip.LOOP_CONTINUOUSLY);
-
-            mii_trap = AudioSystem.getClip();
-            mii_trap.open(mii_trap_audioInputStream);
-            mii_trap.loop(Clip.LOOP_CONTINUOUSLY);
-            mii_trap.stop();
-
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-            String[] options = {"Continue"};
-            JOptionPane.showOptionDialog(frame, ex, eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
-        }
     }
 }
