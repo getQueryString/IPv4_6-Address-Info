@@ -66,8 +66,7 @@ public class TrackIP implements ActionListener {
     public void IPInfoBuild() {
 
         // Buttons
-        Main.ipaddrCopyLocationResult.setVisible(true);
-        Main.ipaddrCopyLocationResult.addActionListener(new Track_CLR_Function());
+        Main.ipaddrCLR.setVisible(true);
         Main.ipaddrOpenTodaysFile.setVisible(true);
 
         IPInfo ipInfo = IPInfo.builder().build();

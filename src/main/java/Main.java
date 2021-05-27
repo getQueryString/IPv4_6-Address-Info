@@ -33,7 +33,7 @@ public class Main {
     public static JButton loginButton;
     public static JButton ipaddrTrackButton;
     public static JButton ipaddrLogoutButton;
-    public static JButton ipaddrCopyLocationResult;
+    public static JButton ipaddrCLR;
     public static JButton ipaddrOpenTodaysFile;
     public static JSlider slider;
     public static JMenuBar bar;
@@ -42,6 +42,7 @@ public class Main {
     public static Clip mii_trap;
 
     public static FloatControl mii_floatControl;
+    public static FloatControl mii_trap_floatControl;
 
     public static String eE = "ErrorException";
 
@@ -130,12 +131,11 @@ public class Main {
         slider.setMajorTickSpacing(20);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
-        slider.addChangeListener(new Sound_BackgroundAudio());
+        //slider.addChangeListener(new Sound_BackgroundAudio());
         sound.add(slider);
 
         // Background audio
         try {
-
             File audio_mii = new File("src/main/resources/mii.wav");
             File audio_mii_trap = new File("src/main/resources/mii_trap.wav");
             AudioInputStream mii_audioInputStream = AudioSystem.getAudioInputStream(audio_mii);
@@ -144,11 +144,11 @@ public class Main {
             mii = AudioSystem.getClip();
             mii.open(mii_audioInputStream);
             mii_floatControl = (FloatControl) mii.getControl(FloatControl.Type.MASTER_GAIN);
-            //mii_floatControl.setValue(20f * (float) Math.log10(1));
             mii.loop(Clip.LOOP_CONTINUOUSLY);
 
             mii_trap = AudioSystem.getClip();
             mii_trap.open(mii_trap_audioInputStream);
+            mii_trap_floatControl = (FloatControl) mii_trap.getControl(FloatControl.Type.MASTER_GAIN);
             mii_trap.loop(Clip.LOOP_CONTINUOUSLY);
             mii_trap.stop();
 
@@ -291,12 +291,12 @@ public class Main {
             ipaddrLogoutButton.addActionListener(new Track_Logout_Function());
             jFramePanel.add(ipaddrLogoutButton);
 
-            ipaddrCopyLocationResult = new JButton("Location", new ImageIcon(copy));
-            ipaddrCopyLocationResult.setBounds(414, 145, 101, 25);
-            ipaddrCopyLocationResult.setFont(ipaddrCopyLocationResult.getFont().deriveFont(11f));
-            ipaddrCopyLocationResult.setVisible(false);
-            ipaddrCopyLocationResult.addActionListener(new Track_CLR_Function());
-            jFramePanel.add(ipaddrCopyLocationResult);
+            ipaddrCLR = new JButton("Location", new ImageIcon(copy));
+            ipaddrCLR.setBounds(414, 145, 101, 25);
+            ipaddrCLR.setFont(ipaddrCLR.getFont().deriveFont(11f));
+            ipaddrCLR.setVisible(false);
+            ipaddrCLR.addActionListener(new Track_CLR_Function());
+            jFramePanel.add(ipaddrCLR);
 
             ipaddrOpenTodaysFile = new JButton("Today's", new ImageIcon(openfolder));
             ipaddrOpenTodaysFile.setBounds(414, 115, 101, 25);

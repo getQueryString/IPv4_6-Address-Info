@@ -11,9 +11,6 @@ public class Track_Logout_Function implements ActionListener {
 
         // Background audio
         Main.mii_trap.stop();
-
-        FloatControl mii_floatControl = (FloatControl) Main.mii.getControl(FloatControl.Type.MASTER_GAIN);
-        mii_floatControl.setValue(20f * (float) Math.log10(0.3));
         Main.mii.start();
 
         // Change panel layout
@@ -29,7 +26,7 @@ public class Track_Logout_Function implements ActionListener {
 
         // Buttons
         Main.ipaddrTrackButton.setVisible(false);
-        Main.ipaddrCopyLocationResult.setVisible(false);
+        Main.ipaddrCLR.setVisible(false);
         Main.ipaddrLogoutButton.setVisible(false);
         Main.ipaddrOpenTodaysFile.setVisible(false);
 

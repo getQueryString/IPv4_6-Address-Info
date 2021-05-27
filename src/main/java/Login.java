@@ -15,9 +15,6 @@ public class Login implements ActionListener {
 
         // Background audio
         Main.mii.stop();
-
-        FloatControl mii_trap_floatControl = (FloatControl) Main.mii_trap.getControl(FloatControl.Type.MASTER_GAIN);
-        mii_trap_floatControl.setValue(20f * (float) Math.log10(0.3));
         Main.mii_trap.start();
 
         // Query
