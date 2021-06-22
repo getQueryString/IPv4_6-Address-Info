@@ -155,6 +155,7 @@ public class Main {
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
             String[] options = {"Continue"};
             JOptionPane.showOptionDialog(frame, ex, eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+            System.exit(0);
         }
 
 
