@@ -10,16 +10,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TrackIP implements ActionListener {
 
     public static IPResponse response;
+
+    // Check availability of IP address
+    Pattern pattern_ipv4;
+    Pattern pattern_ipv6;
+    Matcher matcher_ipv4;
+    Matcher matcher_ipv6;
+
+    // String
+    static final String IP_ADDRESS_REGEX_IPV4 = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+            "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+            "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+            "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+    static final String IP_ADDRESS_REGEX_IPV6 = "^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$";
 
     public void actionPerformed(ActionEvent e) {
         startTrack();
     }
 
     public void startTrack() {
+        Main.ipaddrText.setText("");
+        // Start check-method for available IP address
+        TrackIP ipAddrValid = new TrackIP();
 
         // Change panel layout
         // JPanel_Track items
@@ -33,29 +51,14 @@ public class TrackIP implements ActionListener {
         try {
             String clipboard = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
 
-            int pC = 0;
-            int cC = 0;
-            char ptemp;
-            char ctemp;
-            for (int p = 0; p < clipboard.length(); p++) {
-                ptemp = clipboard.charAt(p);
-                ctemp = clipboard.charAt(p);
-                if (ptemp == '.') {
-                    pC++;
-                }
-                if (ctemp == ':') {
-                    cC++;
-                }
-            }
-
-            if (clipboard.matches("^[a-zA-Z0-9.:]+$") && (clipboard.contains(":") || clipboard.contains(".")
-                    && !clipboard.contains(" ")) && clipboard.length() >= 7 && (pC == 3 || (cC >= 5 && cC <= 7))) {
+            if (ipAddrValid.validate_ipv4(clipboard) == true || ipAddrValid.validate_ipv6(clipboard) == true) {
                 Main.ipaddrText.setText(clipboard);
+                System.out.println("Not empty");
                 IPInfoBuild();
 
             } else {
                 String[] options = {"Continue"};
-                JOptionPane.showOptionDialog(Main.frame, "Clipboard does'nt contain a possible IPv4/6-address!", Main.eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+                JOptionPane.showOptionDialog(Main.frame, "*No information about the IP address\n*IPv4/6 address cannot contain spaces\n*Clipboard does not contain an IPv4/6 address", Main.eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
 
             }
         } catch (Exception exception) {
@@ -75,48 +78,50 @@ public class TrackIP implements ActionListener {
         try {
             response = ipInfo.lookupIP(Main.ipaddrText.getText());
             Main.ip.setText("IPv4/6-Address : " + response.getIp());
-            if (!Main.ip.getText().contains("null")) {
-                Main.hostname.setText("Hostname           : " + response.getHostname());
-                Main.orga.setText("Organisation      : " + response.getOrg());
-                Main.location.setText("Country                : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity());
-                Main.loc.setText("Location              : " + response.getLocation());
 
-            } else {
-                // JPanel_Track items
-                Main.hostname.setVisible(false);
-                Main.orga.setVisible(false);
-                Main.location.setVisible(false);
-                Main.loc.setVisible(false);
-                Main.location.setText("null");
-                String[] options = {"Continue"};
-                JOptionPane.showOptionDialog(Main.frame, "IP-address not found!", Main.eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+            Main.hostname.setText("Hostname           : " + response.getHostname());
+            Main.orga.setText("Organisation      : " + response.getOrg());
+            Main.location.setText("Country                : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity());
+            Main.loc.setText("Location              : " + response.getLocation());
 
-            }
         } catch (Exception exception) {
             String[] options = {"Continue"};
             JOptionPane.showOptionDialog(Main.frame, exception, Main.eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
         }
 
         // Save today's address-info
-        if (!Main.location.getText().contains("null")) {
-            try {
-                FileWriter writer;
-                File dat = new File("addrinf(" + Main.OutputDate() + ").log");
-                writer = new FileWriter(dat, true);
-                writer.write("- - - - - - Time: " + Main.OutputTime() + " - - - - - -\n"
-                        + "IPv4/6-Address : " + response.getIp() + "\n"
-                        + "Hostname       : " + response.getHostname() + "\n"
-                        + "Organisation   : " + response.getOrg() + "\n"
-                        + "Country        : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity()
-                        + "\n"
-                        + "Location       : " + response.getLocation() + "\n\n");
-                writer.flush();
-                writer.close();
+        try {
+            FileWriter writer;
+            File dat = new File("addrinf(" + Main.OutputDate() + ").log");
+            writer = new FileWriter(dat, true);
+            writer.write("- - - - - - Time: " + Main.OutputTime() + " - - - - - -\n"
+                    + "IPv4/6-Address : " + response.getIp() + "\n"
+                    + "Hostname       : " + response.getHostname() + "\n"
+                    + "Organisation   : " + response.getOrg() + "\n"
+                    + "Country        : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity()
+                    + "\n"
+                    + "Location       : " + response.getLocation() + "\n\n");
+            writer.flush();
+            writer.close();
 
-            } catch (Exception exception) {
-                String[] options = {"Continue"};
-                JOptionPane.showOptionDialog(Main.frame, exception, Main.eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
-            }
+        } catch (Exception exception) {
+            String[] options = {"Continue"};
+            JOptionPane.showOptionDialog(Main.frame, exception, Main.eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
         }
+    }
+
+    public TrackIP() {
+        pattern_ipv4 = Pattern.compile(IP_ADDRESS_REGEX_IPV4);
+        pattern_ipv6 = Pattern.compile(IP_ADDRESS_REGEX_IPV6);
+    }
+
+    public boolean validate_ipv4(final String ipAddress) {
+        matcher_ipv4 = pattern_ipv4.matcher(ipAddress);
+        return matcher_ipv4.matches();
+    }
+
+    public boolean validate_ipv6(final String ipAddress) {
+        matcher_ipv6 = pattern_ipv6.matcher(ipAddress);
+        return matcher_ipv6.matches();
     }
 }

@@ -11,7 +11,7 @@ public class Track_CLR_Function implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (!Main.location.getText().contains("null")) {
+        if (TrackIP.response.getIp() != null) {
             StringSelection locationText = new StringSelection("https://www.google.com/maps/search/" + TrackIP.response.getLocation());
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             clipboard.setContents(locationText, null);
