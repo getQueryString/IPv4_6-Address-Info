@@ -55,7 +55,7 @@ public class Login implements ActionListener {
             Main.denied.setText("");
 
             try {
-                URL ticked_icon = new URL("https://i.ibb.co/Cs9jL7n/Start-Icon.png");
+                URL ticked_icon = new URL("https://i.ibb.co/NSjdhb9/Ticked-Icon.png");
                 BufferedImage ticked = ImageIO.read(ticked_icon);
 
                 JOptionPane optionPane = new JOptionPane("Successfully logged in", JOptionPane.INFORMATION_MESSAGE);
@@ -83,7 +83,7 @@ public class Login implements ActionListener {
         } else if (usr.equals("") && pw.equals("")) {
             Main.denied.setVisible(false);
             try {
-                URL error_icon = new URL("https://i.ibb.co/Cs9jL7n/Start-Icon.png");
+                URL error_icon = new URL("https://i.ibb.co/NSjdhb9/Ticked-Icon.png");
                 BufferedImage error = ImageIO.read(error_icon);
 
                 JOptionPane optionPane = new JOptionPane("Enter login details!", JOptionPane.WARNING_MESSAGE);
@@ -101,7 +101,7 @@ public class Login implements ActionListener {
         } else {
             Main.denied.setVisible(false);
             try {
-                URL error_icon = new URL("https://i.ibb.co/Cs9jL7n/Start-Icon.png");
+                URL error_icon = new URL("https://i.ibb.co/NSjdhb9/Ticked-Icon.png");
                 BufferedImage error = ImageIO.read(error_icon);
 
                 JOptionPane optionPane = new JOptionPane("Access denied!", JOptionPane.ERROR_MESSAGE);
