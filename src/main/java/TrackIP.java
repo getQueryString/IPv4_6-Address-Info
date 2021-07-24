@@ -93,7 +93,6 @@ public class TrackIP implements ActionListener {
         try {
             FileWriter writer;
             File dat = new File("logs\\addrinf(" + Main.OutputDate() + ").log");
-            new File("/logs").mkdirs();
             File dir = new File("logs");
             if (!dir.exists()) {
                 try {
