@@ -1,7 +1,6 @@
 // Copyright© by Fin
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,10 +11,6 @@ public class Login implements ActionListener {
 
     @Deprecated
     public void actionPerformed(ActionEvent e) {
-
-        // Background audio
-        Main.mii.stop();
-        Main.mii_trap.start();
 
         // Query
         String usr = Main.userText.getText();
@@ -69,6 +64,9 @@ public class Login implements ActionListener {
                 JOptionPane.showOptionDialog(Main.frame, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
                 System.exit(0);
             }
+            // Background audio
+            Main.mii.stop();
+            Main.mii_trap.start();
 
         } else if (!(usr.equals("")) && pw.equals("")) {
             Main.denied.setText("Password is missing!");
@@ -83,7 +81,7 @@ public class Login implements ActionListener {
         } else if (usr.equals("") && pw.equals("")) {
             Main.denied.setVisible(false);
             try {
-                URL error_icon = new URL("https://i.ibb.co/NSjdhb9/Ticked-Icon.png");
+                URL error_icon = new URL("https://i.ibb.co/jhzPV13/Error-Icon.png");
                 BufferedImage error = ImageIO.read(error_icon);
 
                 JOptionPane optionPane = new JOptionPane("Enter login details!", JOptionPane.WARNING_MESSAGE);
@@ -101,7 +99,7 @@ public class Login implements ActionListener {
         } else {
             Main.denied.setVisible(false);
             try {
-                URL error_icon = new URL("https://i.ibb.co/NSjdhb9/Ticked-Icon.png");
+                URL error_icon = new URL("https://i.ibb.co/jhzPV13/Error-Icon.png");
                 BufferedImage error = ImageIO.read(error_icon);
 
                 JOptionPane optionPane = new JOptionPane("Access denied!", JOptionPane.ERROR_MESSAGE);

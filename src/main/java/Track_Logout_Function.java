@@ -1,6 +1,5 @@
 // Copyright© by Fin
 
-import javax.sound.sampled.FloatControl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,10 +7,6 @@ public class Track_Logout_Function implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        // Background audio
-        Main.mii_trap.stop();
-        Main.mii.start();
 
         // Change panel layout
         Main.denied.setVisible(true);
@@ -36,5 +31,9 @@ public class Track_Logout_Function implements ActionListener {
         Main.orga.setVisible(false);
         Main.location.setVisible(false);
         Main.loc.setVisible(false);
+
+        // Background audio
+        Main.mii_trap.stop();
+        Main.mii.start();
     }
 }

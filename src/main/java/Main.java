@@ -252,12 +252,12 @@ public class Main {
 
         // Attempted connection
         try {
-            URL login_icon = new URL("https://i.ibb.co/NSjdhb9/Ticked-Icon.png");
-            URL start_icon = new URL("https://i.ibb.co/NSjdhb9/Ticked-Icon.png");
-            URL logout_icon = new URL("https://i.ibb.co/NSjdhb9/Ticked-Icon.png");
-            URL copy_icon = new URL("https://i.ibb.co/NSjdhb9/Ticked-Icon.png");
-            URL location_icon = new URL("https://i.ibb.co/NSjdhb9/Ticked-Icon.png");
-            URL openfolder_icon = new URL("https://i.ibb.co/NSjdhb9/Ticked-Icon.png");
+            URL login_icon = new URL("https://i.ibb.co/JtbgL95/Login-Icon.png");
+            URL start_icon = new URL("https://i.ibb.co/D4KmYRx/Start-Icon.png");
+            URL logout_icon = new URL("https://i.ibb.co/wyCDjNp/Logout-Icon.png");
+            URL copy_icon = new URL("https://i.ibb.co/C6DvJYK/CopyIcon.png");
+            URL location_icon = new URL("https://i.ibb.co/ctyx42r/Location-Icon.png");
+            URL openfolder_icon = new URL("https://i.ibb.co/PwGbsXG/Open-Folder-Icon.png");
 
             BufferedImage login = ImageIO.read(login_icon);
             BufferedImage start = ImageIO.read(start_icon);

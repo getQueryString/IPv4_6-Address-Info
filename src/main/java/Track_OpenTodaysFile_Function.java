@@ -13,7 +13,7 @@ public class Track_OpenTodaysFile_Function implements ActionListener {
 
         // Open today's address-info file
         try {
-            Desktop.getDesktop().open(new File("addrinf(" + Main.OutputDate() + ").log"));
+            Desktop.getDesktop().open(new File("logs\\addrinf(" + Main.OutputDate() + ").log"));
         } catch (Exception exception) {
 
             String[] options = {"Continue"};

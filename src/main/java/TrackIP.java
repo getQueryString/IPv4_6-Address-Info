@@ -92,7 +92,16 @@ public class TrackIP implements ActionListener {
         // Save today's address-info
         try {
             FileWriter writer;
-            File dat = new File("addrinf(" + Main.OutputDate() + ").log");
+            File dat = new File("logs\\addrinf(" + Main.OutputDate() + ").log");
+            new File("/logs").mkdirs();
+            File dir = new File("logs");
+            if (!dir.exists()) {
+                try {
+                    dir.mkdir();
+                } catch (Exception e) {
+
+                }
+            }
             writer = new FileWriter(dat, true);
             writer.write("- - - - - - Time: " + Main.OutputTime() + " - - - - - -\n"
                     + "IPv4/6-Address : " + response.getIp() + "\n"
