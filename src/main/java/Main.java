@@ -26,6 +26,11 @@ public class Main {
     public static JLabel orga;
     public static JLabel location;
     public static JLabel loc;
+    public static JLabel ip_result;
+    public static JLabel hostname_result;
+    public static JLabel orga_result;
+    public static JLabel location_result;
+    public static JLabel loc_result;
     public static JLabel ipaddrTextInfo;
     public static JTextField userText;
     public static JTextField ipaddrText;
@@ -82,6 +87,7 @@ public class Main {
         // Settings
         jFramePanel = new JPanel();
         jFramePanel.setLayout(null);
+        jFramePanel.setBackground(Color.BLACK);
         bar = new JMenuBar();
         frame = new JFrame("IPv4/6-Address-Info");
         frame.setSize(540, 270);
@@ -167,7 +173,8 @@ public class Main {
         userLabel = new JLabel("Username:");
         userLabel.setBounds(10, 20, 80, 25);
         userLabel.setFont(new Font("Courier New", Font.BOLD, 14));
-        userLabel.setForeground(Color.RED);
+        userLabel.setForeground(Color.GREEN);
+        //userLabel.setBorder(BorderLayout.WEST);
         jFramePanel.add(userLabel);
 
         userText = new JTextField();
@@ -180,7 +187,7 @@ public class Main {
         pwLabel = new JLabel("Password:");
         pwLabel.setBounds(10, 50, 80, 25);
         pwLabel.setFont(new Font("Courier New", Font.BOLD, 14));
-        pwLabel.setForeground(Color.RED);
+        pwLabel.setForeground(Color.GREEN);
         jFramePanel.add(pwLabel);
 
         pwText = new JPasswordField();
@@ -243,12 +250,45 @@ public class Main {
         loc.setVisible(false);
         jFramePanel.add(loc);
 
+        // Track output result
+        ip_result = new JLabel();
+        ip_result.setBounds(100, 80, 400, 25);
+        ip_result.setVisible(false);
+        jFramePanel.add(ip_result);
+
+        hostname_result = new JLabel();
+        hostname_result.setBounds(100, 100, 400, 25);
+        hostname_result.setVisible(false);
+        jFramePanel.add(hostname_result);
+
+        orga_result = new JLabel();
+        orga_result.setBounds(100, 120, 400, 25);
+        orga_result.setVisible(false);
+        jFramePanel.add(orga_result);
+
+        location_result = new JLabel();
+        location_result.setBounds(100, 140, 400, 25);
+        location_result.setVisible(false);
+        jFramePanel.add(location_result);
+
+        loc_result = new JLabel();
+        loc_result.setBounds(100, 160, 400, 25);
+        loc_result.setVisible(false);
+        jFramePanel.add(loc_result);
+
         // Set color
-        ip.setForeground(Color.BLUE);
-        hostname.setForeground(Color.BLACK);
-        orga.setForeground(Color.RED);
-        location.setForeground(Color.BLUE);
-        loc.setForeground(Color.BLACK);
+        // Text
+        ip.setForeground(Color.GREEN);
+        hostname.setForeground(Color.GREEN);
+        orga.setForeground(Color.GREEN);
+        location.setForeground(Color.GREEN);
+        loc.setForeground(Color.GREEN);
+        // Result
+        ip_result.setForeground(Color.GREEN);
+        hostname_result.setForeground(Color.GREEN);
+        orga_result.setForeground(Color.GREEN);
+        location_result.setForeground(Color.GREEN);
+        loc_result.setForeground(Color.GREEN);
 
         // Attempted connection
         try {

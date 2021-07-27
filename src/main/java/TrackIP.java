@@ -41,11 +41,18 @@ public class TrackIP implements ActionListener {
 
         // Change panel layout
         // JPanel_Track items
+        // Text
         Main.ip.setVisible(true);
         Main.hostname.setVisible(true);
         Main.orga.setVisible(true);
         Main.location.setVisible(true);
         Main.loc.setVisible(true);
+        // Result
+        Main.ip_result.setVisible(true);
+        Main.hostname_result.setVisible(true);
+        Main.orga_result.setVisible(true);
+        Main.location_result.setVisible(true);
+        Main.loc_result.setVisible(true);
 
         // Paste clipboard / continue with own
         try {
@@ -53,7 +60,6 @@ public class TrackIP implements ActionListener {
 
             if (ipAddrValid.validate_ipv4(clipboard) == true || ipAddrValid.validate_ipv6(clipboard) == true) {
                 Main.ipaddrText.setText(clipboard);
-                System.out.println("Not empty");
                 IPInfoBuild();
 
             } else {
@@ -77,12 +83,21 @@ public class TrackIP implements ActionListener {
         // Get address-info
         try {
             response = ipInfo.lookupIP(Main.ipaddrText.getText());
-            Main.ip.setText("IPv4/6-Address : " + response.getIp());
 
-            Main.hostname.setText("Hostname           : " + response.getHostname());
-            Main.orga.setText("Organisation      : " + response.getOrg());
-            Main.location.setText("Country                : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity());
-            Main.loc.setText("Location              : " + response.getLocation());
+            // Text
+            Main.ip.setText("IPv4/6-Address");
+
+            Main.hostname.setText("Hostname");
+            Main.orga.setText("Organisation");
+            Main.location.setText("Country");
+            Main.loc.setText("Location");
+
+            // Result
+            Main.ip_result.setText(": " + response.getIp());
+            Main.hostname_result.setText(": " + response.getHostname());
+            Main.orga_result.setText(": " + response.getOrg());
+            Main.location_result.setText(": " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity());
+            Main.loc_result.setText(": " + response.getLocation());
 
         } catch (Exception exception) {
             String[] options = {"Continue"};

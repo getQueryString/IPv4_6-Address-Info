@@ -38,19 +38,25 @@ public class Login implements ActionListener {
             if (!(Main.ipaddrText.getText().equals(""))) {
                 Main.ipaddrText.setText("");
             }
-
+            // Text
             Main.ip.setText("");
             Main.hostname.setText("");
             Main.orga.setText("");
             Main.location.setText("");
             Main.loc.setText("");
+            // Result
+            Main.ip_result.setText("");
+            Main.hostname_result.setText("");
+            Main.orga_result.setText("");
+            Main.location_result.setText("");
+            Main.loc_result.setText("");
 
             Main.userText.setText("");
             Main.pwText.setText("");
             Main.denied.setText("");
 
             try {
-                URL ticked_icon = new URL("https://i.ibb.co/NSjdhb9/Ticked-Icon.png");
+                URL ticked_icon = new URL("https://i.ibb.co/g4mzNy4/Ticked-Icon.png");
                 BufferedImage ticked = ImageIO.read(ticked_icon);
 
                 JOptionPane optionPane = new JOptionPane("Successfully logged in", JOptionPane.INFORMATION_MESSAGE);

@@ -26,11 +26,18 @@ public class Track_Logout_Function implements ActionListener {
         Main.ipaddrOpenTodaysFile.setVisible(false);
 
         // JPanel_Track items
+        // Text
         Main.ip.setVisible(false);
         Main.hostname.setVisible(false);
         Main.orga.setVisible(false);
         Main.location.setVisible(false);
         Main.loc.setVisible(false);
+        // Result
+        Main.ip_result.setVisible(false);
+        Main.hostname_result.setVisible(false);
+        Main.orga_result.setVisible(false);
+        Main.location_result.setVisible(false);
+        Main.loc_result.setVisible(false);
 
         // Background audio
         Main.mii_trap.stop();
