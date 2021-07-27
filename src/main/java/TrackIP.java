@@ -86,12 +86,10 @@ public class TrackIP implements ActionListener {
 
             // Text
             Main.ip.setText("IPv4/6-Address");
-
             Main.hostname.setText("Hostname");
             Main.orga.setText("Organisation");
             Main.location.setText("Country");
             Main.loc.setText("Location");
-
             // Result
             Main.ip_result.setText(": " + response.getIp());
             Main.hostname_result.setText(": " + response.getHostname());
