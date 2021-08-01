@@ -1,11 +1,8 @@
 // Copyright© by Fin
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.net.URL;
 
 public class Login implements ActionListener {
 
@@ -43,33 +40,24 @@ public class Login implements ActionListener {
             Main.hostname.setText("");
             Main.orga.setText("");
             Main.location.setText("");
-            Main.loc.setText("");
+            Main.longlat.setText("");
             // Result
             Main.ip_result.setText("");
             Main.hostname_result.setText("");
             Main.orga_result.setText("");
             Main.location_result.setText("");
-            Main.loc_result.setText("");
+            Main.longlat_result.setText("");
 
             Main.userText.setText("");
             Main.pwText.setText("");
             Main.denied.setText("");
 
-            try {
-                URL ticked_icon = new URL("https://i.ibb.co/g4mzNy4/Ticked-Icon.png");
-                BufferedImage ticked = ImageIO.read(ticked_icon);
+            JOptionPane optionPane = new JOptionPane("Successfully logged in", JOptionPane.INFORMATION_MESSAGE);
+            JDialog dialog = optionPane.createDialog("Logged in");
+            dialog.setIconImage(new ImageIcon("src/main/resources/TickedIcon.png").getImage());
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
 
-                JOptionPane optionPane = new JOptionPane("Successfully logged in", JOptionPane.INFORMATION_MESSAGE);
-                JDialog dialog = optionPane.createDialog("Logged in");
-                dialog.setIconImage(ticked);
-                dialog.setAlwaysOnTop(true);
-                dialog.setVisible(true);
-
-            } catch (Exception exception) {
-                String[] options = {"Exit"};
-                JOptionPane.showOptionDialog(Main.frame, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
-                System.exit(0);
-            }
             // Background audio
             Main.mii.stop();
             Main.mii_trap.start();
@@ -86,42 +74,24 @@ public class Login implements ActionListener {
 
         } else if (usr.equals("") && pw.equals("")) {
             Main.denied.setVisible(false);
-            try {
-                URL error_icon = new URL("https://i.ibb.co/jhzPV13/Error-Icon.png");
-                BufferedImage error = ImageIO.read(error_icon);
 
-                JOptionPane optionPane = new JOptionPane("Enter login details!", JOptionPane.WARNING_MESSAGE);
-                JDialog dialog = optionPane.createDialog("Login error");
-                dialog.setIconImage(error);
-                dialog.setAlwaysOnTop(true);
-                dialog.setVisible(true);
-
-            } catch (Exception exception) {
-                String[] options = {"Exit"};
-                JOptionPane.showOptionDialog(Main.frame, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
-                System.exit(0);
-            }
+            JOptionPane optionPane = new JOptionPane("Enter login details!", JOptionPane.WARNING_MESSAGE);
+            JDialog dialog = optionPane.createDialog("Login error");
+            dialog.setIconImage(new ImageIcon("src/main/resources/ErrorIcon.png").getImage());
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
 
         } else {
             Main.denied.setVisible(false);
-            try {
-                URL error_icon = new URL("https://i.ibb.co/jhzPV13/Error-Icon.png");
-                BufferedImage error = ImageIO.read(error_icon);
+            JOptionPane optionPane = new JOptionPane("Access denied!", JOptionPane.ERROR_MESSAGE);
+            JDialog dialog = optionPane.createDialog("Access denied");
+            dialog.setIconImage(new ImageIcon("src/main/resources/ErrorIcon.png").getImage());
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
 
-                JOptionPane optionPane = new JOptionPane("Access denied!", JOptionPane.ERROR_MESSAGE);
-                JDialog dialog = optionPane.createDialog("Access denied");
-                dialog.setIconImage(error);
-                dialog.setAlwaysOnTop(true);
-                dialog.setVisible(true);
+            Main.userText.setText("");
+            Main.pwText.setText("");
 
-                Main.userText.setText("");
-                Main.pwText.setText("");
-
-            } catch (Exception exception) {
-                String[] options = {"Exit"};
-                JOptionPane.showOptionDialog(Main.frame, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
-                System.exit(0);
-            }
         }
     }
 }

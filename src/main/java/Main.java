@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.time.LocalDateTime;
@@ -25,12 +26,12 @@ public class Main {
     public static JLabel hostname;
     public static JLabel orga;
     public static JLabel location;
-    public static JLabel loc;
+    public static JLabel longlat;
     public static JLabel ip_result;
     public static JLabel hostname_result;
     public static JLabel orga_result;
     public static JLabel location_result;
-    public static JLabel loc_result;
+    public static JLabel longlat_result;
     public static JLabel ipaddrTextInfo;
     public static JTextField userText;
     public static JTextField ipaddrText;
@@ -65,7 +66,7 @@ public class Main {
 
     public static void checkConnection() {
         try {
-            URL check = new URL("https://imgbb.com");
+            URL check = new URL("https://ipinfo.io");
             URLConnection connection = check.openConnection();
             connection.connect();
             connection.getInputStream().close();
@@ -164,7 +165,6 @@ public class Main {
             System.exit(0);
         }
 
-
         // Set bar
         frame.setJMenuBar(bar);
 
@@ -206,7 +206,7 @@ public class Main {
         // JPanel_Track
         ipaddrlabel = new JLabel("IPv4/6-Address:");
         ipaddrlabel.setBounds(10, 20, 100, 25);
-        ipaddrlabel.setForeground(Color.RED);
+        ipaddrlabel.setForeground(Color.GREEN);
         ipaddrlabel.setVisible(false);
         jFramePanel.add(ipaddrlabel);
 
@@ -245,10 +245,10 @@ public class Main {
         location.setVisible(false);
         jFramePanel.add(location);
 
-        loc = new JLabel();
-        loc.setBounds(10, 160, 400, 25);
-        loc.setVisible(false);
-        jFramePanel.add(loc);
+        longlat = new JLabel();
+        longlat.setBounds(10, 160, 400, 25);
+        longlat.setVisible(false);
+        jFramePanel.add(longlat);
 
         // Track output result
         ip_result = new JLabel();
@@ -271,10 +271,10 @@ public class Main {
         location_result.setVisible(false);
         jFramePanel.add(location_result);
 
-        loc_result = new JLabel();
-        loc_result.setBounds(100, 160, 400, 25);
-        loc_result.setVisible(false);
-        jFramePanel.add(loc_result);
+        longlat_result = new JLabel();
+        longlat_result.setBounds(100, 160, 400, 25);
+        longlat_result.setVisible(false);
+        jFramePanel.add(longlat_result);
 
         // Set color
         // Text
@@ -282,75 +282,52 @@ public class Main {
         hostname.setForeground(Color.GREEN);
         orga.setForeground(Color.GREEN);
         location.setForeground(Color.GREEN);
-        loc.setForeground(Color.GREEN);
+        longlat.setForeground(Color.GREEN);
         // Result
         ip_result.setForeground(Color.GREEN);
         hostname_result.setForeground(Color.GREEN);
         orga_result.setForeground(Color.GREEN);
         location_result.setForeground(Color.GREEN);
-        loc_result.setForeground(Color.GREEN);
+        longlat_result.setForeground(Color.GREEN);
 
-        // Attempted connection
-        try {
-            URL login_icon = new URL("https://i.ibb.co/JtbgL95/Login-Icon.png");
-            URL start_icon = new URL("https://i.ibb.co/D4KmYRx/Start-Icon.png");
-            URL logout_icon = new URL("https://i.ibb.co/wyCDjNp/Logout-Icon.png");
-            URL copy_icon = new URL("https://i.ibb.co/C6DvJYK/CopyIcon.png");
-            URL location_icon = new URL("https://i.ibb.co/ctyx42r/Location-Icon.png");
-            URL openfolder_icon = new URL("https://i.ibb.co/PwGbsXG/Open-Folder-Icon.png");
+        frame.setIconImage(new ImageIcon("src/main/resources/LocationIcon.png").getImage());
 
-            BufferedImage login = ImageIO.read(login_icon);
-            BufferedImage start = ImageIO.read(start_icon);
-            BufferedImage logout = ImageIO.read(logout_icon);
-            BufferedImage copy = ImageIO.read(copy_icon);
-            BufferedImage location = ImageIO.read(location_icon);
-            BufferedImage openfolder = ImageIO.read(openfolder_icon);
+        // Buttons
+        // JPanel_Login
+        loginButton = new JButton("Login", new ImageIcon("src/main/resources/LoginIcon.png"));
+        loginButton.setBounds(10, 80, 90, 25);
+        loginButton.setFont(loginButton.getFont().deriveFont(11f));
+        loginButton.addActionListener(new Login());
+        jFramePanel.add(loginButton);
 
-            frame.setIconImage(location);
+        // JPanel_Track
+        ipaddrTrackButton = new JButton("Track", new ImageIcon("src/main/resources/StartIcon.png"));
+        ipaddrTrackButton.setBounds(10, 50, 90, 25);
+        ipaddrTrackButton.setFont(ipaddrTrackButton.getFont().deriveFont(11f));
+        ipaddrTrackButton.setVisible(false);
+        ipaddrTrackButton.addActionListener(new TrackIP());
+        jFramePanel.add(ipaddrTrackButton);
 
-            // Buttons
-            // JPanel_Login
-            // loginButton = new JButton("Login", new ImageIcon("src/main/resources/LoginIcon.png"));
-            loginButton = new JButton("Login", new ImageIcon(login));
-            loginButton.setBounds(10, 80, 90, 25);
-            loginButton.setFont(loginButton.getFont().deriveFont(11f));
-            loginButton.addActionListener(new Login());
-            jFramePanel.add(loginButton);
+        ipaddrLogoutButton = new JButton("Logout", new ImageIcon("src/main/resources/LogoutIcon.png"));
+        ipaddrLogoutButton.setBounds(414, 175, 101, 25);
+        ipaddrLogoutButton.setFont(ipaddrLogoutButton.getFont().deriveFont(11f));
+        ipaddrLogoutButton.setVisible(false);
+        ipaddrLogoutButton.addActionListener(new Track_Logout_Function());
+        jFramePanel.add(ipaddrLogoutButton);
 
-            // JPanel_Track
-            ipaddrTrackButton = new JButton("Track", new ImageIcon(start));
-            ipaddrTrackButton.setBounds(10, 50, 90, 25);
-            ipaddrTrackButton.setFont(ipaddrTrackButton.getFont().deriveFont(11f));
-            ipaddrTrackButton.setVisible(false);
-            ipaddrTrackButton.addActionListener(new TrackIP());
-            jFramePanel.add(ipaddrTrackButton);
+        ipaddrCLR = new JButton("Location", new ImageIcon("src/main/resources/CopyIcon.png"));
+        ipaddrCLR.setBounds(414, 145, 101, 25);
+        ipaddrCLR.setFont(ipaddrCLR.getFont().deriveFont(11f));
+        ipaddrCLR.setVisible(false);
+        ipaddrCLR.addActionListener(new Track_CLR_Function());
+        jFramePanel.add(ipaddrCLR);
 
-            ipaddrLogoutButton = new JButton("Logout", new ImageIcon(logout));
-            ipaddrLogoutButton.setBounds(414, 175, 101, 25);
-            ipaddrLogoutButton.setFont(ipaddrLogoutButton.getFont().deriveFont(11f));
-            ipaddrLogoutButton.setVisible(false);
-            ipaddrLogoutButton.addActionListener(new Track_Logout_Function());
-            jFramePanel.add(ipaddrLogoutButton);
-
-            ipaddrCLR = new JButton("Location", new ImageIcon(copy));
-            ipaddrCLR.setBounds(414, 145, 101, 25);
-            ipaddrCLR.setFont(ipaddrCLR.getFont().deriveFont(11f));
-            ipaddrCLR.setVisible(false);
-            ipaddrCLR.addActionListener(new Track_CLR_Function());
-            jFramePanel.add(ipaddrCLR);
-
-            ipaddrOpenTodaysFile = new JButton("Today's", new ImageIcon(openfolder));
-            ipaddrOpenTodaysFile.setBounds(414, 115, 101, 25);
-            ipaddrOpenTodaysFile.setFont(ipaddrOpenTodaysFile.getFont().deriveFont(11f));
-            ipaddrOpenTodaysFile.setVisible(false);
-            ipaddrOpenTodaysFile.addActionListener(new Track_OpenTodaysFile_Function());
-            jFramePanel.add(ipaddrOpenTodaysFile);
-
-        } catch (Exception exception) {
-            String[] options = {"Exit"};
-            JOptionPane.showOptionDialog(frame, exception, "ErrorException", JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
-            System.exit(0);
-        }
+        ipaddrOpenTodaysFile = new JButton("Today's", new ImageIcon("src/main/resources/OpenFolderIcon.png"));
+        ipaddrOpenTodaysFile.setBounds(414, 115, 101, 25);
+        ipaddrOpenTodaysFile.setFont(ipaddrOpenTodaysFile.getFont().deriveFont(11f));
+        ipaddrOpenTodaysFile.setVisible(false);
+        ipaddrOpenTodaysFile.addActionListener(new Track_OpenTodaysFile_Function());
+        jFramePanel.add(ipaddrOpenTodaysFile);
 
         frame.setVisible(true);
     }

@@ -31,13 +31,13 @@ public class Track_Logout_Function implements ActionListener {
         Main.hostname.setVisible(false);
         Main.orga.setVisible(false);
         Main.location.setVisible(false);
-        Main.loc.setVisible(false);
+        Main.longlat.setVisible(false);
         // Result
         Main.ip_result.setVisible(false);
         Main.hostname_result.setVisible(false);
         Main.orga_result.setVisible(false);
         Main.location_result.setVisible(false);
-        Main.loc_result.setVisible(false);
+        Main.longlat_result.setVisible(false);
 
         // Background audio
         Main.mii_trap.stop();

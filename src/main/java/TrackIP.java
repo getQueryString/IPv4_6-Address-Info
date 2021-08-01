@@ -46,13 +46,13 @@ public class TrackIP implements ActionListener {
         Main.hostname.setVisible(true);
         Main.orga.setVisible(true);
         Main.location.setVisible(true);
-        Main.loc.setVisible(true);
+        Main.longlat.setVisible(true);
         // Result
         Main.ip_result.setVisible(true);
         Main.hostname_result.setVisible(true);
         Main.orga_result.setVisible(true);
         Main.location_result.setVisible(true);
-        Main.loc_result.setVisible(true);
+        Main.longlat_result.setVisible(true);
 
         // Paste clipboard / continue with own
         try {
@@ -64,7 +64,7 @@ public class TrackIP implements ActionListener {
 
             } else {
                 String[] options = {"Continue"};
-                JOptionPane.showOptionDialog(Main.frame, "*No information about the IP address\n*IPv4/6 address cannot contain spaces\n*Clipboard does not contain an IPv4/6 address", Main.eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+                JOptionPane.showOptionDialog(Main.frame, "*IPv4/6 address cannot contain spaces\n*Clipboard does not contain an IPv4/6 address", Main.eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
 
             }
         } catch (Exception exception) {
@@ -88,14 +88,14 @@ public class TrackIP implements ActionListener {
             Main.ip.setText("IPv4/6-Address");
             Main.hostname.setText("Hostname");
             Main.orga.setText("Organisation");
-            Main.location.setText("Country");
-            Main.loc.setText("Location");
+            Main.location.setText("Location");
+            Main.longlat.setText("Long-, Latitude");
             // Result
             Main.ip_result.setText(": " + response.getIp());
             Main.hostname_result.setText(": " + response.getHostname());
             Main.orga_result.setText(": " + response.getOrg());
             Main.location_result.setText(": " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity());
-            Main.loc_result.setText(": " + response.getLocation());
+            Main.longlat_result.setText(": " + response.getLocation());
 
         } catch (Exception exception) {
             String[] options = {"Continue"};
@@ -116,12 +116,12 @@ public class TrackIP implements ActionListener {
             }
             writer = new FileWriter(dat, true);
             writer.write("- - - - - - Time: " + Main.OutputTime() + " - - - - - -\n"
-                    + "IPv4/6-Address : " + response.getIp() + "\n"
-                    + "Hostname       : " + response.getHostname() + "\n"
-                    + "Organisation   : " + response.getOrg() + "\n"
-                    + "Country        : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity()
+                    + "IPv4/6-Address  : " + response.getIp() + "\n"
+                    + "Hostname        : " + response.getHostname() + "\n"
+                    + "Organisation    : " + response.getOrg() + "\n"
+                    + "Location        : " + response.getCountryCode() + ", " + response.getRegion() + "; " + response.getPostal() + ", " + response.getCity()
                     + "\n"
-                    + "Location       : " + response.getLocation() + "\n\n");
+                    + "Long-, Latitude : " + response.getLocation() + "\n\n");
             writer.flush();
             writer.close();
 
@@ -130,6 +130,7 @@ public class TrackIP implements ActionListener {
             JOptionPane.showOptionDialog(Main.frame, exception, Main.eE, JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
         }
     }
+
 
     public TrackIP() {
         pattern_ipv4 = Pattern.compile(IP_ADDRESS_REGEX_IPV4);
